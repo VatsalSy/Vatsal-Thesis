@@ -28,7 +28,7 @@ The chapter is organized as follows: \S~\ref{sec:method} discusses the governing
 \label{sec:method}
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/Figure0_Schematic_Thesis.eps}
+	\includegraphics[width=\textwidth]{Ch2Figures/Figure0_Schematic_Thesis.eps}
 	\caption{Axi-symmetric computational domain used to study impact of a drop with radius $R$ and velocity $V$ on an ideal non-wetting substrate. The subscripts $d$ and $a$ denote the drop and air, respectively, to distinguish their material properties, namely, density $\rho$ and viscosity $\eta$. The drop-air surface tension coefficient is $\gamma$ and $g$ denotes the acceleration due to gravity. The gray dashed-dotted line represents the axis of symmetry, $r = 0$. Boundary outflow is applied at the top and side boundaries (tangential stresses, normal velocity gradient, and ambient pressure are set to zero). The domain boundaries are far enough not to influence the drop impact process ($\mathcal{L}_{\text{max}} \gg R$).}
 	\label{Ch3::fig:schematic}
 \end{figure}
@@ -89,13 +89,13 @@ Figure~\ref{Ch3::fig:schematic} shows the axi-symmetric computational domain whe
 \label{sec:bouncingInhibition}
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/Figure1_RegimeMap_v6_Thesis.eps}
+	\includegraphics[width=\textwidth]{Ch2Figures/Figure1_RegimeMap_v6_Thesis.eps}
 	\caption{Regime map in terms of the Bond number $\Bon = \rho_dgR^2/\gamma$ and the drop Ohnesorge number $\Ohd = \eta_d/\sqrt{\rho_d\gamma R}$, marking the bouncing and non-bouncing regimes identified in this work. The data points represent the transition between bouncing and non-bouncing regimes at different Weber numbers $\Wen$, and the insets illustrate typical cases in these regimes. The yellow data points are extracted from the literature for comparison. The solid black line delineates the theoretical prediction of this transition (equation~\eqref{eq:MainEquation}). Lastly, the black dotted vertical and horizontal lines mark the limiting cases, $\Ohc = 1$ and $\Boc = 1$, respectively. See also supplementary movie~\red{1}.}
 	\label{fig:RegimeMap}
 \end{figure}
 \begin{sidewaysfigure}
 	\centering
-	\includegraphics[width=180mm]{3_ChDropViscousBouncing/fig/Figure2_Phenomenology_v2_Thesis.eps}
+	\includegraphics[width=180mm]{Ch2Figures/Figure2_Phenomenology_v2_Thesis.eps}
 	\caption{Three representative cases away from the two asymptotes: direct numerical simulations snapshots illustrating the drop impact dynamics for $\left(\Ohd, \Bon\right)$ = $\left(0.2, 0.4\right)$ (a), = $\left(0.6, 0.4\right)$ (b), and = $\left(0.2, 0.8\right)$ (c) . The left hand side of each numerical snapshot shows the dimensionless viscous dissipation function $\tilde{\xi}_\eta = 2\Ohn\left(\boldsymbol{\tilde{\mathcal{D}}:\tilde{\mathcal{D}}}\right)$ on a $\log_{10}$ scale to identify regions of maximum dissipation (black). The right hand side shows the magnitude of the velocity field normalized by the initial impact velocity, $V$. The black velocity vectors are plotted in the center of mass reference frame of the drop to clearly show the internal flow. For all the cases shown here, the impact Weber number is $\Wen = 20$. See also supplementary movie~\red{SM2}.}
 	\label{fig:Phenomenology}
 \end{sidewaysfigure}
@@ -172,13 +172,13 @@ In the next section, we focus on evidencing the physical mechanisms leading to b
 \subsection{How does a viscous drop stop bouncing?}\label{sec:LimitingCases:Oh}
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/Figure3_Ohlimit_v5_Thesis.eps}
+	\includegraphics[width=\textwidth]{Ch2Figures/Figure3_Ohlimit_v5_Thesis.eps}
 	\caption{Light drop asymptote, $\Bon = 0$: variation of the (a) contact time $t_c$ normalized by the inertio-capillary timescale $\tau_{\rho\gamma} = \sqrt{\rho_dR^3/\gamma}$, and (b) restitution coefficient $\varepsilon$ with the drop Ohnesorge number $\Ohd$ at different Weber numbers $\Wen$. In both panels, the solid lines represent the theoretical predictions using a spring-mass-damper system \citep[contact time, equation~\eqref{eqn:JhaEtAl_time} and restitution coefficient, equation~\eqref{eqn:JhaEtAl_epsilon},][]{jha2020viscous}. The horizontal dotted lines represent the contact time and restitution coefficient values in the limit of inviscid drops ($\Ohd \ll 1$). The limiting value of contact time $\tau_0 = 2.25$ is independent of $\Wen$ while that of restitution coefficient $\varepsilon_0$ depends on $\Wen$. Lastly, the dotted black vertical lines and the gray shaded regions mark the critical Ohnesorge number $\Ohc \sim \mathcal{O}\left(1\right)$ beyond which drops do not bounce.}
 	\label{fig:Ohlim}
 \end{figure}
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/Figure3b_Ohlimit_v4_Thesis_v2.eps}
+	\includegraphics[width=\textwidth]{Ch2Figures/Figure3b_Ohlimit_v4_Thesis_v2.eps}
 	\caption{Details of the light drop asymptote, $\Bon = 0$: energy budgets for typical drop impacts at $\Wen = 1$ for $\Ohd = 0.001$ (a) and $\Ohd =  2$ (b). $E_k$ and $E_\eta$ represent the kinetic energy and viscous dissipation, respectively. $\Delta E_s$ denote the the change in surface energy with its zero set at $t = 0$. The numerical snapshots in the insets illustrate the drop morphologies and the anatomy of flow inside them. Left hand side of each snapshot shows the dimensionless viscous dissipation function $\tilde{\xi}_\eta = 2\Ohn\left(\boldsymbol{\tilde{\mathcal{D}}:\tilde{\mathcal{D}}}\right)$ on a $\log_{10}$ scale to identify regions of maximum dissipation (black). The right hand side shows the magnitude of the velocity field normalized by the initial impact velocity, $V$. The black dotted lines in panels (a) and (b) mark the instant when the drop takes off and when the normal contact force between the drop and the substrate is minimum, respectively ($t = t_c$). Energy distributions at $t_c$ for $\Wen = 1$ (c)  and $\Wen = 20$ (d) as a function of $\Ohd$. The black vertical lines and the gray shaded regions mark the critical Ohnesorge number $\Ohc \sim \mathcal{O}\left(1\right)$ beyond which drops do not bounce. See also supplementary movie~\red{3}.}
 	\label{fig:OhlimDescription}
 \end{figure}
@@ -247,19 +247,19 @@ The primary influence of $\Wen$ is to decrease the inviscid limit restitution $\
 \subsection{How does a heavy drop stop bouncing?}\label{sec:LimitingCases:Bo}
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/Figure4_Bolimit_v4_Thesis_v2.eps}
+	\includegraphics[width=\textwidth]{Ch2Figures/Figure4_Bolimit_v4_Thesis_v2.eps}
 	\caption{Inviscid drop asymptote ($\Ohd = 0.01 \ll 1$): variation of the (a) contact time $t_c$ normalized by the inertio-capillary timescale $\tau_{\rho\gamma} = \sqrt{\rho_dR^3/\gamma}$, and (b) restitution coefficient $\varepsilon$ with the Bond number $\Bon$ at different Weber numbers $\Wen$. In both panels, the solid lines represent the theoretical predictions from a spring-mass analogy \citep[equation~\ref{eqn:BianceEtAl_epsilon},][]{biance2006}. The horizontal dotted line in panel (b) represents the restitution coefficient values in the limit of zero Bond number ($\Bon \to 0$). This limiting value of restitution coefficient $\varepsilon_0$ depends on $\Wen$. Notice that although the restitution coefficients match with the predictions from the model, the contact time show slight deviations from the prediction of a constant contact time, $\tau_0 = 2.25$, when $\Boc$ is approached. Lastly, the dotted black vertical lines and the gray shaded regions mark the critical Bond number $\Boc \sim \mathcal{O}\left(1\right)$ beyond which drops do not bounce.}
 	\label{fig:Bolim}
 \end{figure}
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/Figure4b_Bolimit_v4_Thesis_v2_1.eps}
+	\includegraphics[width=\textwidth]{Ch2Figures/Figure4b_Bolimit_v4_Thesis_v2_1.eps}
 	\caption{Details of the inviscid drop asymptote ($\Ohd = 0.01 \ll 1$): energy budgets for typical drop impacts at $\Wen = 1$ for $\Bon = 0$ (a) and $\Bon = 2$ (b) in the limit of inviscid drops. $E_k$ and $E_\eta$ represent the kinetic energy and viscous dissipation, respectively. $\Delta E_g$ and $\Delta E_s$ denote the the change in gravitational potential energy and surface energy, respectively with their zeroes set at the instant of maximum spreading of the impacting drop, and at $t = 0$, respectively. The numerical snapshots in the insets illustrate the drop morphologies and the anatomy of flow inside them. Left hand side of each snapshot shows the dimensionless viscous dissipation function $\tilde{\xi}_\eta = 2\Ohn\left(\boldsymbol{\tilde{\mathcal{D}}:\tilde{\mathcal{D}}}\right)$ on a $\log_{10}$ scale to identify regions of maximum dissipation (black). The right hand side shows the magnitude of the velocity field normalized by the initial impact velocity $V$. The black dotted line in panel (a) marks the instant when the drop takes off, setting $t_c = 2.3\tau_{\rho\gamma}$. In panel (b), the black vertical lines and the gray shaded regions bound the time interval when the normal contact force between the drop and the substrate is zero. See also supplementary movie~\red{4}.}
 	\label{fig:BolimDescription}
 \end{figure}
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/Figure4b_Bolimit_v4_Thesis_v2_2.eps}
+	\includegraphics[width=\textwidth]{Ch2Figures/Figure4b_Bolimit_v4_Thesis_v2_2.eps}
 	\caption{Details of the inviscid drop asymptote ($\Ohd = 0.01 \ll 1$): energy distributions at $t_c$ for $\Wen = 1$ (a) and $\Wen = 20$ (b) as a function of $\Bon$. For non-bouncing cases, $t_c$ represents the end of first drop oscillation cycle, for example $t_c = 2.5\tau_{\rho\gamma}$ in figure~\ref{fig:BolimDescription}(b). The black vertical lines and the gray shaded regions in each panel mark the critical Bond number $\Boc \sim \mathcal{O}\left(1\right)$ beyond which drops do not bounce.}
 	\label{fig:BolimDescription2}
 \end{figure}
@@ -317,7 +317,7 @@ We thank Aditya Jha for sharing data. We also thank Uddalok Sen, Maziyar Jalaal,
 	
 	\begin{sidewaysfigure}
 		\centering
-		\includegraphics[width=180mm]{3_ChDropViscousBouncing/fig/FigureAppendixRestitution_Thesis.eps}
+		\includegraphics[width=180mm]{Ch2Figures/FigureAppendixRestitution_Thesis.eps}
 		\caption{A representative temporal variation of (a) the normal reaction force $F$ on the drop and (b) its center of mass velocity $v_{\text{cm}}$. Time is normalized using the inertio-capillary timescale $\tau_{\rho\gamma}$. Insets illustrate the different stages of drop impact process. The background shows the magnitude of the rate of viscous dissipation per unit volume ($\tilde{\xi}_\eta = 2Oh\left(\boldsymbol{\tilde{\mathcal{D}}:\tilde{\mathcal{D}}}\right)$) on the left and the magnitude of velocity field normalized by the impact velocity on the right. The vertical dashed black line represents the contact time calculated using the criterion, $F = 0$ marking the end of contact between the drop and the substrate. Here, $\left(\Wen, \Ohd, \Bon\right) = \left(4, 0.034, 0.5\right)$, the contact time $t_c = 2.25\tau_{\rho\gamma}$, and the coefficient of restitution $\varepsilon = 0.47$.}
 		\label{fig:AppendixRestitution}
 	\end{sidewaysfigure}
@@ -333,7 +333,7 @@ We thank Aditya Jha for sharing data. We also thank Uddalok Sen, Maziyar Jalaal,
 	\section{Influence of Weber number}\label{app:Weber}
 	\begin{figure}
 		\centering
-		\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/FigureAppendix_Weber_v2_Thesis.eps}
+		\includegraphics[width=\textwidth]{Ch2Figures/FigureAppendix_Weber_v2_Thesis.eps}
 		\caption{Variation of restitution coefficient with the impact Weber number ($\Wen$) at different drop Ohnesorge number ($\Ohd$). The simulations (circle data points) match perfectly with the experimental results (diamond data points) of \citet{jha2020viscous} without any fitting parameters. $\varepsilon_0$ is the restitution coefficient in the inviscid drop limit. The black dotted line represents $1/\sqrt{\Wen}$. Here, the Bond number $\Bon =0.167$.}
 		\label{fig:AppendixWeber}
 	\end{figure}
@@ -357,7 +357,7 @@ We thank Aditya Jha for sharing data. We also thank Uddalok Sen, Maziyar Jalaal,
 
 	\begin{figure*}
 		\centering
-		\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/QRcodesChapter2.eps}
+		\includegraphics[width=\textwidth]{Ch2Figures/QRcodesChapter2.eps}
 	\end{figure*}
 	
 \end{subappendices}

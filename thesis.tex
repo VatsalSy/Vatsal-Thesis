@@ -176,53 +176,50 @@ hidethumbs=false,verbose=true]{thumbs}
 \mainmatter
 
 %\addthumb{Chapter  0}{\huge{\textbf{\arabic{chapter}}}}{white}{gray}
-\input{0_Introduction/index}
+\input{Chapter0_Introduction}
 \stopthumb
-%
+
 \part{Drop Impact}\label{PartA}
-%
-%%\addthumb{Chapter  1}{\huge{\textbf{\arabic{chapter}}}}{white}{gray}
-%%\input{1_ChDropBetaMax/index}
+
+\addthumb{Chapter  1}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch1}
+\input{Chapter1}  %Done
 %%
-\addthumb{Chapter  2}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch1}
-\input{2_ChDropForces/index}  %Done
-%
-\addthumb{Chapter  3}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch2}
-\input{3_ChDropViscousBouncing/index}
-%
-\addthumb{Chapter  4}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch3}
-\input{4_ChDropBouncingOnFilm/index}
-%
-\addthumb{Chapter  5}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch4}
-\input{5_ChDropOnDrop/index}  %Done
-%
+\addthumb{Chapter  2}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch2}
+\input{Chapter2}
+%%
+\addthumb{Chapter  3}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch3}
+\input{Chapter3}
+%%
+\addthumb{Chapter  4}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch4}
+\input{Chapter4}
+%%
 \stopthumb
+%%
+%\part{Retraction \& Bursting}\label{PartB}
+%%
+%\addthumb{Chapter  6}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch5}
+%\input{6_ChTaylorCulick/index} %Done
+%%
+%\addthumb{Chapter  7}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch6}
+%\input{7_ChBurstingBubbleVP/index}
+%%
+%\stopthumb
 %
-\part{Retraction \& Bursting}\label{PartB}
+%\bookmarksetup{startatroot}% this is it
+%\addtocontents{toc}{\bigskip}% perhaps as well
 %
-\addthumb{Chapter  6}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch5}
-\input{6_ChTaylorCulick/index} %Done
+%\input{0_Conclusion/index}
 %
-\addthumb{Chapter  7}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch6}
-\input{7_ChBurstingBubbleVP/index}
+%%
+%%\nocite{*}
+%\bibliography{biblioClean_v12}
+%%
 %
-\stopthumb
-
-\bookmarksetup{startatroot}% this is it
-\addtocontents{toc}{\bigskip}% perhaps as well
-
-\input{0_Conclusion/index}
-
-%
-%\nocite{*}
-\bibliography{biblioClean_v12}
-%
-
-\backmatter
-\include{backmatter/summary}  %summary English (obligatory)
-\include{backmatter/samenvatting} %summary Dutch (obligatory)
-\include{backmatter/acknowledgements}
-\include{backmatter/bio}
+%\backmatter
+%\include{backmatter/summary}  %summary English (obligatory)
+%\include{backmatter/samenvatting} %summary Dutch (obligatory)
+%\include{backmatter/acknowledgements}
+%\include{backmatter/bio}
 %\include{backmatter/scientificoutput}
 
 \cleardoublepage 
