@@ -1,0 +1,207 @@
+\chapter*{Introduction}\label{chap:intro}
+\chaptermark{Introduction}
+\markboth{\MakeUppercase{Introduction}}{}
+\addcontentsline{toc}{chapter}{Introduction}
+
+Liquids rule our lives in more ways than usually perceived. In one of his popular-science books, \citet{miodownik2019liquid} delineates the fickle nature of the life-sustaining, delightful, and yet at times, potentially dangerous fluid flow processes. To cite a few examples, the blood flow in our body sustains life, whereas nitroglycerin-based explosives hold the inherent amplitude to cause severe damage. Nonetheless, aesthetically pleasing waterfalls are a relief to sore eyes for everyone. What is even more intriguing is how many of the examples discussed in \citet{miodownik2019liquid} and our everyday encounter with liquids for cooking, drinking, and cleaning involve flows at the interface between two fluids, one of which offers negligible tangential shear stress. Such flows are categorized as free-surface flows \citep{tryggvason2011direct} and are the subject of this thesis. 
+
+From the atomization chamber that fuels an aircraft to the Moka pot that fueled the author while finishing this thesis, all involve intricate free-surface flows. Such processes often span over multi-scales, for example, from slamming of ocean waves onto ships and sloshing of liquid cargo to that of coffee or tea in a cup \cite{UJThesis}, and can involve multi-physics from self-propelled drops on a superheated surface (the so-called Leidenfrost drops, \citep{Boerhaave1732, leidenfrost1756, quere2013leidenfrost}) to disintegration of liquids in strong electric fields (for example, electrospray from Taylor cones, \citep{taylor1964disintegration, ashgriz2011handbook}). Yet another example of free-surface flows involves a glass of wine where a liquid film climbs along the wall, evaporates, and drips tiny droplets (known as \lq\lq tears\rq\rq\ of wine owing to the Marangoni stresses, \citep{hosoi2001evaporative, book-degennes}). It is, therefore, safe to claim that free-surface flows are omnipresent. 
+
+This thesis elucidates two classes of the above-mentioned free-surface phenomena, namely, the impact of liquid drops on non-wetting substrates (part~\ref{PartA}) and capillary driven retraction and bursting of films and free-surface bubbles, respectively (part~\ref{PartB}). In all the cases, we pay special attention to viscous stresses and how they dictate the fate of such free-surface flows.
+
+\section*{Part~\ref{PartA}: Drop Impact}
+
+It is fascinating to watch raindrops hitting a solid surface \citep{kim2020raindrop, lohse-2020-pnas}. This phenomenon has piqued the interest of scientists for over five centuries, ever since Leonardo da Vinci sketched a water drop impacting a rigid immobile substrate (see figure~\ref{Ch0::Fig1}a, reproduced from the margin of folio 33r in Codex Hammer/Leicester (1506 -- 1510), \citep{da1508notebooks}), who also noted the axisymmetry of drop impact and rebound. However, it was only in 1876-77 (still over one-and-a-half century ago) when Arthur Mason Worthington \citep{worthington1877xxviii, worthington1877second} published the first photographs of the drop impact process, stimulating artists, scientists, and engineers alike ever since. Indeed, drop impact processes are not only interesting from a point of view of fundamental research but also find relevance in inkjet printing \cite{lohse2022fundamental}, cooling applications \cite{kim2007spray, shiri2017heat, jowkar2019rebounding}, pesticides application \cite{he2021optimization, hoffman2021controlling}, and criminal forensics \cite{smith2018influence}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{0_Introduction/fig/Figure1_v3.eps}
+	\caption{(a) Sketch of a water drop falling on a rigid immobile substrate by \citet{da1508notebooks}. (b) A drop of dew sitting on a non-wetting leaf, nature's way of keeping flora dry (adapted with permission from \citet{carolaThesis}). (c) A water drop impacting  a mosquito \citep{dickerson2012mosquitoes}.}
+	\label{Ch0::Fig1}
+\end{figure}
+
+Upon impact \citep{wagner1932stoss}, the liquid first spreads \citep{philippi2016, Gordillo2018} until it reaches its maximal extent \citep{clanet2004,laan2014maximum, wildeman2016spreading, gordillo2019theory}. For a perfectly wetting substrate, for example, glass or paper \citep{lohse2022fundamental}, the drop sticks to it. However, for a non-wetting substrate, for example, plant leaves (see figure~\ref{Ch0::Fig1}b, \citep{neinhuis1997characterization, quere2008wetting, carolaThesis}), the drops can ricochet off following rich dynamics: from the maximum spreading extent, it recoils, following a capillary-driven Taylor-Culick type retraction parallel to the substrate to minimize its surface energy \citep{taylor-1959-procrsoclonda, culick-1960-japplphys, bartolo2005retraction, pierson2020revisiting, deka2020revisiting, sanjay2022taylor}, and ultimately bounces off in an elongated shape perpendicular to the substrate \citep{richard2000bouncing, yarin2006drop, josserand2016drop}. Following the first observations by \citet{worthington1877xxviii, worthington1877second}, these elongated shapes are called Worthington jets, and are formed by the flow-focusing due to capillary waves \citep{renardy2003pyramidal, bartolo2006singular} and drop retraction \citep{bartolo2005retraction}.
+
+Such drop impact and bouncing behavior abound in nature as non-wetting surfaces provide plants and animals with a natural way to keep dry \citep{neinhuis1997characterization, quere2008wetting, dickerson2012mosquitoes}. Such rebound behaviors are also important in various industrial processes \citep{yarin2017} such as self-cleaning \citep{blossey2003self}, keeping clothes dry \citep{liu2008hydrophobic}, and anti-fogging surfaces \citep{mouterde2017antifogging}. However, the repellent behavior of these non-wetting substrates is volatile and can fail due to external disturbances such as pressure \cite{lafuma2003, callies2005water, sbragaglia2007, li2017}, evaporation \cite{tsai2010, chen2012, papadopoulos2013},  mechanical vibration \cite{bormashenko2007}, or the impact forces of prior droplets \cite{bartolo2006bouncing}. Hence, for most of these applications, the drop impact forces can lead to severe unwanted consequences, such as soil erosion \cite{nearing1986} or the damage to engineered surfaces \cite{ahmad2013, amirzadeh2017, gohardani2011}. A thorough understanding of the drop impact forces is thus needed to develop countermeasures against these damages \cite{cheng2021drop}. Consequently, it is natural to ask how much force the substrate (plant leaves or insects) experiences during such impact and takeoff events (see figure~\ref{Ch0::Fig1}c, \citep{dickerson2012mosquitoes, UJThesis} and chapter~\ref{chap:DropForces}).
+
+In most of the applications mentioned above, such as self-cleaning \citep{blossey2003self} and anti-fogging  \citep{mouterde2017antifogging}, it is pertinent that the drops bounce off the surface. On the other hand, bouncing must be suppressed for various other applications, such as inkjet printing \citep{lohse2022fundamental} or pesticide deposition \cite{gart2015droplet, he2021optimization, hoffman2021controlling}. Therefore, one often wonders when will a drop stop bouncing? We will answer this question in chapter~\ref{chap:DropViscousBouncing} by studying the role of viscosity and gravity on bouncing inhibition of impacting drops. Furthermore, in chapter~\ref{chap:DropBouncingOnFilm}, we extend this work to cases where the substrate is coated with a viscous oil film and an air layer is trapped between it and the impacting drop, delaying their contact. 
+
+In fact, in 1881, \citet{reynolds1881floating} noticed a delay in coalescence between an impacting drop and a pool of the same liquid, owing to an air layer between them. Interfacial processes such as Marangoni flow \citep{geri2017thermal}, Leidenfrost effect \citep{Boerhaave1732, leidenfrost1756,  chandra1991collision, tran2012drop, quere2013leidenfrost, shirota2016dynamic, chantelot2021leidenfrost}, inverse Leidenfrost effect \citep{adda2016inverse, gauthier2019capillary, gauthier2019self}, or electromagnetic forces \citep{pal2017control, singh2018levitation} can further stabilize the sandwiched air/vapor layer to facilitate levitation. Moreover, even drops impacting on rigid substrates encounter such air layers that can delay coalescence \citep{kolinski2012skating}. In 2012, \citet{van2012direct} used direct interferometry measurements to quantify these air-layers \citep[also see][]{mandre2009precursors, driscoll2011ultrafast, bouwhuis2012}.
+ 
+Furthermore, they also facilitate superamphiphobic-like bouncing \citep{kolinski2014drops}. We also address such behaviors in chapter~\ref{chap:DropBouncingOnFilm}. A further extension of bouncing off viscous liquid films is the collision between an impacting drop and a sessile one sitting on a non-wetting substrate. A better understanding of such impacts is crucial in the emerging field of additive manufacturing. For example, in 3D printing, which is one of the widely used additive manufacturing techniques, the relative precision of the drop deposition and its shape evolution may decide the success or failure of a printed device. Although it has been shown that the collision of two freely flying droplets offers much richer dynamics than the impact of a single drop \citep{jiang1992, qian1997}, the collision between an impacting drop and a sessile one is still not well explored. So, in chapter~\ref{chap:DropOnDrop}, we demystify such collision scenarios.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{0_Introduction/fig/Figure2_v4.eps}
+	\caption{(a-i) Playing with soap bubbles (reprinted with permission from \citet{guyon2021hidden}) as a pierced soap bubble shrinks (and vanishes) to minimize its surface area and (a-ii) a controlled experiment of the same process \citep{lhuissier2012bursting}. (b) Bubbles bursting at the free-surface of champagne \citep{ghabache2016evaporation}. (c) A mud volcano (reprinted with permission from \citet{balmforth2014yielding}).}
+	\label{Ch0::Fig2}
+\end{figure}
+
+\section*{Part~\ref{PartB}: Retraction \& Bursting}
+Ever since the seminal works of \citet{savart1833oppositejets, savart1833waterbells, savart1833hydraulicjump}, fluid dynamicists have been intrigued by liquid films, sheets, and soap bubbles for over two centuries. It is particularly bewitching to watch these sheets shrink and vanish to minimize their surface area once a hole nucleates on them (see figure~\ref{Ch0::Fig2}a; also notice the liquid filaments that rapidly break up to generate a myriad of tiny droplets.). Consequently, such bursting of liquid (e.g., soap) films in the air is perhaps the most widely studied example of sheet destabilization and retraction -- an area of active research since the pioneering works of \citet{dupre1867theorie, dupre1869theorie, rayleigh-1891-nature}, \citet{taylor-1959-procrsoclonda, culick-1960-japplphys, mcentee-1969-jphyschem} in the late nineteenth and mid-twentieth century to the more recent investigations of \citet{bremond-2005-jfm, muller-2007-prl, lhuissier2012bursting, munro-2015-jfm, deka2020revisiting}.
+
+Such retraction processes involve the release of excess surface energy as the interfacial area of the film decreases. Indeed, \citet{dupre1867theorie, dupre1869theorie} wrongly assumed that the \lq entire\rq\, surface energy released during such retractions manifests as the kinetic energy of the film \citep{rayleigh-1891-nature} and calculated a retraction velocity that was off by a factor of $\sqrt{2}$ when compared to the experiments, leading to the famous Dupr{\'e}-Rayleigh paradox \citep{villermaux2020fragmentation}. \citet{taylor-1959-procrsoclonda} circumvented this paradox by using force/momentum balance to calculate the retraction velocity, which agreed with experiments. However, it was only when \citet{culick-1960-japplphys} realized that the missing link was viscous dissipation that the paradox was solved \citep{de1996introductory}. The correct energy balance requires that the rate of surface energy released should be distributed equally into an increase in kinetic energy of the rim and the viscous dissipation inside the film. Consequently, such retractions are now referred to as Taylor-Culick retractions. More recently, \citet{savva-2009-jfm, pierson2020revisiting, deka2020revisiting} have further enhanced the understanding of the role of internal viscous stresses in such retraction processes. In chapter~\ref{chap:TaylorCulick}, we focus on the role of external viscous stresses on \revVP{the} retraction of liquid films. 
+
+Common realizations of Taylor-Culick retractions include bursting of bubbles at a liquid-gas free-surface (figure~\ref{Ch0::Fig2}a-ii, \citep{lhuissier2012bursting}). Once the liquid film separating the gas bubble from the gaseous surrounding disappears, an open cavity is formed \citep{mason1954bursting} whose collapse leads to a series of rich dynamical processes that involve flow-focusing owing to capillary waves \citep{zeff2000singularity, duchemin2002jet} and may lead to the formation of a Worthington jet \citep{gordillo2019capillary}. Perfect flow-focusing can also result in an ultra-thin and fast singular jet. Such free-surface bubble bursting is seen in a glass of champagne or other sparkling wine (figure~\ref{Ch0::Fig3}c) and is often credited for enhancing the mouthfeel of the taster \citep{liger2012physics,vignes2013fizzling,ghabache2014physics,ghabache2016evaporation}.
+
+For Newtonian liquids like champagne (figure~\ref{Ch0::Fig2}b), \citet{duchemin2002jet, ganan2017revision, deike2018dynamics, gordillo2019capillary} have extensively studied the bursting bubble process, resulting in a profound understanding of the physics of bubble bursting in Newtonian fluids. Surprisingly, very little is known about some other common realizations of bursting bubbles: in geophysics, for example, bubbles bursting at the free surface of mud volcanoes (figure~\ref{Ch0::Fig2}c) and in the food industry, where the rheological properties of the medium influence the collapse of bubble cavities. These materials behave more like an elastic solid below critical stress (yield stress); however, they flow above this critical stress. Readers can find detailed reviews on yield stress fluids in \citet{bird1983rheology,coussot2014yield,balmforth2014yielding,bonn2017yield}. In such cases, the viscous stresses are enhanced by this non-zero yield stress enabling the free surface to sustain finite deformations. In chapter~\ref{chap:BurstingBubbleVP}, we elucidate the physics of a bursting bubble in a viscoplastic medium by analyzing the role of yield stress on the free-surface phenomenon of the collapse of a bubble cavity driven by capillarity to approach minimum surface area configuration. 
+
+\section*{Relevant timescales and dimensionless numbers}
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{0_Introduction/fig/Figure3_v5.eps}
+	\caption{Important scales for viscous free-surface flows. Here, $\mathcal{V}$ and $\mathcal{L}$ are the relevant velocity and length scales associated with the flow, whereas $\rho$, $\gamma$, and $\eta$ are the material properties of the fluid, namely, density, surface tension coefficient, and viscosity, respectively. $\tau_{ij}$ denote several timescales, which are used throughout this thesis: the inertial timescale, $\tau_I = \mathcal{L}/\mathcal{V}$, inertio-capillary timescale, $\tau_{\rho\gamma} = \sqrt{\rho\mathcal{L}^3/\gamma}$, inertio-viscous timescale, $\tau_{\rho\eta} = \rho\mathcal{L}^2/\eta$, and the visco-capillary time scale, $\tau_{\eta\gamma} = \eta\mathcal{L}/\gamma$.}
+	\label{Ch0::Fig3}
+\end{figure}
+
+Ever since the pioneering ideas of \citet{buckingham1914physically, buckingham1915principle}, fluid dynamicists highly value dimensionless numbers as they give a convenient way to express the control and output parameters of a process. It is common to express these numbers as ratios of different force, time, or length scales \citep{lohse2022fundamental}. Figure~\ref{Ch0::Fig3} illustrates the relevant forces (inertia, capillarity, and viscosity) that we will discuss throughout this thesis and the associated timescales: visco-capillary ($\tau_{\eta\gamma}$), inertio-capillary ($\tau_{\rho\gamma}$), inertio-viscous  ($\tau_{\rho\eta} $), and inertial ($\tau_I$), defined as
+
+\begin{align}
+	\tau_{\eta\gamma} = \frac{\eta\mathcal{L}}{\gamma}, \quad \tau_{\rho\gamma} = \sqrt{\frac{\rho\mathcal{L}^3}{\gamma}}, \quad \tau_{\rho\eta} = \frac{\rho\mathcal{L}^2}{\eta}, \quad  \tau_I = \frac{\mathcal{L}}{\mathcal{V}}.
+\end{align}
+
+\noindent Here, $V$ and $\mathcal{L}$ are the relevant velocity and length scales associated with the flow, whereas $\rho$, $\gamma$, and $\eta$ are the material properties of the fluid, namely, density, surface tension coefficient, and viscosity, respectively. The visco-capillary timescale ($\tau_{\eta\gamma}$) is associated with capillary driving and viscous resistance, for example, thinning of a viscous liquid thread \citep{eggers2015singularities}. The inertio-capillary timescale ($\tau_{\rho\gamma}$) measures the duration of processes driven by capillary and resisted by inertia, for example, it is the Rayleigh timescale for the breakup of an inviscid fluid jet or that of capillary oscillations of a freely suspended liquid drop \citep{rayleigh1879capillary}. Furthermore, the inertio-viscous timescale ($\tau_{\rho\eta}$) estimates the duration of processes involving inertia and viscous stresses, for example, the development of boundary layers during drop impact \citep{eggers2010drop}. Lastly, the inertial timescale ($\tau_I$) is associated with flows involving only inertia, for example, inertial shock that follows the impact of an inviscid drop \citep{cheng2021drop}. 
+
+Using the above-mentioned timescales, we define several dimensionless numbers and use them throughout this thesis. The square of the ratio of the inertio-capillary to inertial timescales gives the Weber number (chapters~\ref{chap:DropForces}--~\ref{chap:TaylorCulick}),
+ 
+\begin{align}\label{Ch0::We}
+	\Wen = \left(\frac{\tau_{\rho\gamma}}{\tau_I}\right)^2 =  \frac{\rho V^2\mathcal{L}}{\gamma},
+\end{align}
+
+\noindent that compares the inertia and capillary stresses. Furthermore, the ratio of inertio-viscous to inertial timescale defines the Reynolds number, 
+
+\begin{align}\label{Ch0::Re}
+	\Ren = \frac{\tau_{\rho\eta}}{\tau_I} =  \frac{\rho V\mathcal{L}}{\eta},
+\end{align}
+
+\noindent that compares the inertial and viscous stresses. Moreover, taking the ratio of visco-capillary and inertial timescales gives the capillary number (chapter~\ref{chap:TaylorCulick}),
+
+\begin{align}\label{Ch0::Ca}
+	\Can = \frac{\tau_{\eta\gamma}}{\tau_I} =  \frac{\eta V}{\gamma}.
+\end{align}
+
+Next, we can also take the ratios of the compound timescales (inertio-capillary to inertio-viscous or visco-capillary to inertio-capillary) to define the Ohnesorge number (used in all chapters), 
+
+\begin{align}\label{Ch0::Oh}
+	\Ohn = \frac{\tau_{\rho\gamma}}{\tau_{\rho\eta}} = \frac{\tau_{\eta\gamma}}{\tau_{\rho\gamma}}  = \frac{\eta}{\sqrt{\rho\gamma\mathcal{L}}},
+\end{align}
+
+\noindent named after the German fluid dynamicist, Wolfgang von Ohnesorge. We refer the readers to \citet{mckinley2011wolfgang} to learn more about this less-known \textquotedblleft numberman\textquotedblright\, of fluid dynamics. The Ohnesorge number requires special mention because it entails a convenient way of involving all the three relevant forces (inertia, capillary, and viscous) in any free-surface fluid dynamics problem (see figure~\ref{Ch0::Fig3}). Furthermore, we use it as a proxy to estimate the importance of viscous dissipation throughout this thesis. Indeed, in all the capillary-driven processes (drop oscillation, retraction, and take-off in chapters~\ref{chap:DropForces}--\ref{chap:DropOnDrop}, and rupture and bursting in chapters~\ref{chap:TaylorCulick}--\ref{chap:BurstingBubbleVP}), a large Ohnesorge number ($\Ohn \gg 1$) implies dominance of viscous stresses. 
+
+It is also common to use the Laplace number, $La$, defined as
+
+\begin{align}\label{Ch0::La}
+	La = \frac{\rho\gamma\mathcal{L}}{\eta^2} = \frac{1}{\Ohn^2}
+\end{align}
+
+\noindent which is conceptually similar to the Ohnesorge number \citep{mckinley2011wolfgang}. 
+
+Of course, introducing forces other than the ones mentioned in figure~\ref{Ch0::Fig3} will add more dimensionless numbers to the list mentioned above. For example, the Bond number (chapter~\ref{chap:DropViscousBouncing}), given by, 
+
+\begin{align}\label{Ch0::Bo}
+	\Bon = \frac{\rho g\mathcal{L}^2}{\gamma}
+\end{align}
+
+\noindent compares gravity to the capillary forces, where $g$ is the acceleration due to gravity. Furthermore, yield stress ($\sigma_y$) of viscoplastic fluids is often characterized using the plastocapillary number (chapter~\ref{chap:BurstingBubbleVP}), defined as, 
+
+\begin{align}\label{Ch0::J}
+	\mathcal{J} = \frac{\sigma_y\mathcal{L}}{\gamma}
+\end{align}
+
+\noindent that compares the yield and capillary stresses. 
+
+Lastly, geometric features and constraints can also enrich the number of dimensionless numbers. For example, for the case of binary drop impact \citep{jiang1992, qian1997}, the offset $d$ between the two droplets can be non-dimensionalized using the relevant length scale (for example, drop's radius), giving the dimensionless offset parameter as (chapter~\ref{chap:DropOnDrop})
+
+\begin{align}\label{Ch0::X}
+		\chi = \frac{d}{\mathcal{L}}.
+\end{align}
+
+Another example can be found for the case of drop impact on liquid films (chapter~\ref{chap:DropBouncingOnFilm} and \citet{tang2019bouncing}) where the dimensionless film thickness can be given as
+
+\begin{align}\label{Ch0::Gamma}
+		\Gamma = \frac{h_f}{\mathcal{L}},
+\end{align}
+
+\noindent where $h_f$ is the thickness of the film.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{0_Introduction/fig/fig_phasespace_Re_Oh_v2.eps}
+	\caption{Parameter space in terms of Ohnesorge number $\Ohn$ and Reynolds number $\Ren$ showing the operating regime for stable drop-on-demand inkjet printing (green shaded area). The green dot corresponds to the material properties of a typical ink under standard operating conditions. The drop needs sufficient kinetic energy to eject out of the nozzle requiring that $\Wen > 4$ or $\Ren \ge 2/\Ohn$ \citep{reitz1998drop}. In terms of the material properties of the ink, printing will fail if the ink is too viscous ($\Ohn \ge 10$) or if satellite drops form ($\Ohn \le 1/10$) \citep{notz2004dynamics, dong2006experimental, xu2007nonsolvent}. Lastly, the criterion for the onset of splashing is given by $\Ohn\Ren^{5/4} \ge 50$ following the work of \citet[][also see chapter~\ref{chap:DropForces}]{derby2010inkjet} and further restricts the printable region for inkjet printers. Similar parameter space for inkjet printing is also available in \citet{von1937anwendung, derby2010inkjet, mckinley2011wolfgang, lohse2022fundamental}. This figure is reproduced from \citet{lohse2022fundamental} with permission from the author.}
+	\label{Ch0::Fig4}
+\end{figure}
+
+We can use the dimensionless numbers described above to illustrate the region of interest in different fluid dynamics processes. Figure~\ref{Ch0::Fig4} exemplifies one such operating parameter space for drop-on-demand inkjet printing in terms of the Ohnesorge number $\Ohn$ (that involves only material properties, equation~\eqref{Ch0::Oh}) and Reynolds number $\Ren$ (that involves both flow and material properties, equation~\eqref{Ch0::Re}). Readers are referred to \citet{lohse2022fundamental} for a detailed review and the state-of-the-art of inkjet printing process.
+
+\begin{sidewaysfigure}
+	\centering
+	\includegraphics[width=180mm]{0_Introduction/fig/IntroRegimes_v3.eps}	
+	\caption{Dimensionless numbers used in the present thesis. The Weber number $\Wen$ (equation~\eqref{Ch0::We}), the Bond number $\Bon$ (equation~\eqref{Ch0::Bo}), and the Ohnesorge number $\Ohn$ (equation~\eqref{Ch0::Oh}) are the three central dimensionless numbers that respectively compare inertial, gravity, and viscous and inertial to capillary stresses. In the subsequent chapters, we will keep at least one of these numbers as a control parameter. We also stress that we use the $\Ohn$ as a proxy for viscous dissipation throughout the thesis. Additionally, we use the dimensionless film thickness $\Gamma$ (equation~\eqref{Ch0::Gamma}) in chapter~\ref{chap:DropBouncingOnFilm}, dimensionless offset $\chi$ (equation~\eqref{Ch0::X}) between the two drops in chapter~\ref{chap:DropOnDrop}, and the plasto-capillary number $\mathcal{J}$ (equation~\eqref{Ch0::J}) in chapter~\ref{chap:BurstingBubbleVP}. In conclusion to this thesis (figure~\ref{Fig::Conclusion}), we redraw this figure with the filled-in regime maps for each chapter.}
+	\label{Fig::IntroRegimeMap}
+\end{sidewaysfigure}
+
+\section*{A guide through the thesis}
+
+In this thesis, we will investigate the role of viscous stresses on several free-surface processes. Here, we provide a guide through the thesis and the key questions that we ask in each chapter.\\
+
+In \textbf{chapter~\ref{chap:DropForces}}, we study the normal force profile of water drops (fixed Ohnesorge number $\Ohn$) impacting superhydrophobic surfaces. We vary $\Wen$ (equation~\eqref{Ch0::We}) and $\Bon$ (equation~\eqref{Ch0::Bo}), see figure~\ref{Fig::IntroRegimeMap}, to answer the following questions:\vspace{1.25mm}
+
+\todoChOne{inline,caption={},inlinewidth=\textwidth}{
+	\underline{\textbf{Chapter~\ref{chap:DropForces}}}
+	
+\begin{enumerate}
+		\item What sets the magnitude of the normal reaction force between the impacting drop and the non-wetting substrate?
+		\item What sets the timescales associated with the normal reaction force?
+\end{enumerate}
+}\vspace{1.25mm}
+
+In \textbf{chapter~\ref{chap:DropViscousBouncing}}, we investigate how viscous stresses and gravity conspire against capillarity to inhibit drop bouncing off non-wetting substrates by varying $\Ohn$ (equation~\eqref{Ch0::Oh}) and  $\Bon$ (equation~\eqref{Ch0::Bo}), see figure~\ref{Fig::IntroRegimeMap}. We ask the following questions:\vspace{1.25mm}
+
+\todoChTwo{inline,caption={},inlinewidth=\textwidth}{
+	\underline{\textbf{Chapter~\ref{chap:DropViscousBouncing}}}
+\begin{enumerate}
+	\item When does a drop stop bouncing?
+	\item How does a viscous drop stop bouncing?
+	\item How does a heavy drop stop bouncing?
+\end{enumerate}}\vspace{1.25mm}
+
+\noindent In this chapter, we also vary the $\Wen$ (equation~\eqref{Ch0::We}) to study its effect on the bouncing to non-bouncing transition in the $\Bon$-$\Ohn$ parameter space.
+
+In \textbf{chapter~\ref{chap:DropBouncingOnFilm}}, we investigate drops bouncing off viscous liquid films that mimic atomically smooth substrates. The repellent behavior of such substrates requires the presence of an air layer trapped between it and an impacting drop. This work varies the $\Ohn$ (equation~\eqref{Ch0::Oh}) of both the drop and the film and $\Gamma$ (equation~\eqref{Ch0::Gamma}) to answer the following questions (figure~\ref{Fig::IntroRegimeMap}):\vspace{1.25mm}
+
+\todoChThree{inline,caption={},inlinewidth=\textwidth}{
+	\underline{\textbf{Chapter~\ref{chap:DropBouncingOnFilm}}}
+\begin{enumerate}
+	\item What happens when a liquid drop bounces off an atomically smooth deformable substrate?
+	\item How does the presence of a viscous film affect the bouncing inhibition discussed in chapter~\ref{chap:DropViscousBouncing}?
+\end{enumerate}}\vspace{1.25mm}
+
+In \textbf{chapter~\ref{chap:DropOnDrop}}, we probe how to lift a sessile oil drop with an impacting one. This chapter is a natural extension to chapter~\ref{chap:DropBouncingOnFilm} where we studied drop impact on flat (zero curvature) films. In this chapter, we study similar impacts on a finite curvature sessile drop at different $\Wen$ (equation~\eqref{Ch0::We}). We also vary the offset $\chi$ (equation~\eqref{Ch0::X}) between the impacting and sessile drops to comprehensively study the drop-on-drop impact process and focus on the following key questions (figure~\ref{Fig::IntroRegimeMap}):\vspace{1.25mm}
+
+\todoChFour{inline,caption={},inlinewidth=\textwidth}{
+\underline{\textbf{Chapter~\ref{chap:DropOnDrop}}}
+\begin{enumerate}
+	\item What is the energy transfer between the two drops when an impacting drop hits a sessile one?
+	\item Can a moving-impact drop lift a lazy sessile drop sitting on a non-wetting substrate?
+\end{enumerate}}\vspace{1.25mm}
+
+In \textbf{chapter~\ref{chap:TaylorCulick}}, we elucidate the influence of the surroundings on Taylor-Culick retractions by exploring three canonical configurations: the classical Taylor-Culick retractions and the generalized ones, namely those fully submerged in an oil bath, and those occurring at an oil-air interface. We vary the $\Ohn$ (equation~\eqref{Ch0::Oh}) associated with both the film and the surroundings (figure~\ref{Fig::IntroRegimeMap}) and seek answers to the following questions:\vspace{1.25mm}
+
+\todoChFive{inline,caption={},inlinewidth=\textwidth}{
+	\underline{\textbf{Chapter~\ref{chap:TaylorCulick}}}
+\begin{enumerate}
+	\item Does the inertia of the surrounding medium matter during capillary driven retraction of liquid films?
+	\item How does viscous dissipation influence film retraction? 
+	\item Where does the bulk of viscous dissipation occur during the Taylor-Culick retraction of films?
+\end{enumerate}}\vspace{1.25mm}
+
+In \textbf{chapter~\ref{chap:BurstingBubbleVP}}, we study how viscoplasticity controls the fate of a bubble bursting at a free surface by varying $\Ohn$ (equation~\eqref{Ch0::Oh}) and $\mathcal{J}$ (equation~\eqref{Ch0::J}), see figure~\ref{Fig::IntroRegimeMap}. The chapter answers the following questions:\vspace{1.25mm}
+
+\todoChSix{inline,caption={},inlinewidth=\textwidth}{
+	\underline{\textbf{Chapter~\ref{chap:BurstingBubbleVP}}}
+\begin{enumerate}
+	\item How do viscosity and viscoplasticity influence the capillary-driven bursting of the bubble at a liquid-gas free-surface?
+	\item Can a liquid-gas free surface sustain non-zero surface energies in the presence of yield stress?
+\end{enumerate}}\vspace{1.25mm}
+
+The thesis ends with a conclusion and outlook section where we redraw figure~\ref{Fig::IntroRegimeMap} with the filled-in regime maps for each chapter and summarize the answers to all the questions posed above.

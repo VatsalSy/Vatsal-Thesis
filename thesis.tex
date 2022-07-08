@@ -1,0 +1,230 @@
+\documentclass[11pt, a4paper]{book} %A4 is overruled by the geometry package later
+\usepackage{geometry} \setlength{\paperwidth}{17cm}\setlength{\paperheight}{24cm} % change a4 sizes to thesis-size
+% Color
+\usepackage[usenames, dvipsnames]{xcolor} % color package
+% Graphics
+\usepackage{graphicx,amsmath,amssymb}
+\usepackage{epstopdf, epsfig} % To convert eps image files to pdf
+\usepackage[font=small]{caption} 
+% References and links
+% author-year citation
+%\usepackage{natbib}
+%\bibliographystyle{abbrvnat}
+%\setcitestyle{authoryear,open={(},close={)}} %Citation-related commands
+% natbib with compression -- does not support backref
+\usepackage[square, numbers, sort&compress, comma]{natbib}
+\bibliographystyle{unsrtnat}
+
+%\usepackage[square, numbers, sort, comma]{natbib}
+%\bibliographystyle{unsrtnat}
+
+
+\definecolor{MyBlue}{rgb}{0,0,0.45} %color used for clickable links and so on
+\definecolor{Myfig}{rgb}{0.45,0,0} %color used for clickable links and so on
+\usepackage[colorlinks=true, urlcolor=MyBlue, linkcolor=MyBlue, plainpages=false, citecolor=MyBlue,bookmarks=true,bookmarksopen=true,bookmarksnumbered=true, pagebackref=true]{hyperref}
+\renewcommand*{\backref}[1]{}  
+    \renewcommand*{\backrefalt}[4]{
+      \ifcase #1 
+          {}%Cited on page #2. %No cited.
+      \or
+          Cited on page #2.
+      \else
+          Cited on pages #2.
+      \fi} 
+\usepackage{bookmark}    
+
+\newcommand*\red{\textcolor{Myfig}}
+%\usepackage[amssymb]{SIunits} % SI-units
+\usepackage[nottoc]{tocbibind} % include or not include elements in TOC
+\usepackage{lscape} % landscape page
+\usepackage[figuresright]{rotating}
+\usepackage{afterpage}
+\usepackage[pagecolor=none]{pagecolor}
+\usepackage{placeins} % floatbarrier
+\usepackage{framed} %for quotes and stuff
+\usepackage{siunitx}
+
+\newcommand{\makered}[1]{\textcolor{Myfig}{#1}}  %used to insert red text
+
+\newcommand{\publink}[1]{\href{#1}{\texttt{[Link]}}}  %used for adding links in mono-spaced font
+
+\newcommand{\revV}[1]{\textcolor{black}{#1}}
+\newcommand{\revP}[1]{\textcolor{black}{#1}}
+\newcommand{\revVP}[1]{\textcolor{black}{#1}}
+
+%\setlength{\parindent}{0mm}   %new environment that is a packed version of an itemize, useful for lists in the bio...
+\newenvironment{packeditemize}{
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{itemize}}
+
+
+\renewcommand{\thefootnote}{\ifcase\value{footnote}\or{$\circ$}\or{$\odot$}\or{$\circledcirc$}\or{$\circledast$}\or($\infty$)\fi} %change footnotes from daggers/stars or numbers to circular shapes
+
+\usepackage[md]{titlesec}
+
+\usepackage[thumblink=none,linefill=dots,height=auto,minheight={33pt},%
+width={30pt},distance={10mm},topthumbmargin=auto,bottomthumbmargin=auto,%
+nophantomsection=true,ignorehoffset=true,ignorevoffset=true,final=true,%
+hidethumbs=false,verbose=true]{thumbs}
+
+% Wanted appendices after every chapter
+\usepackage{appendix}
+\AtBeginEnvironment{subappendices}{%
+	\chapter*{Appendix}
+	\addcontentsline{toc}{chapter}{Appendices}
+	\counterwithin{figure}{section}
+	\counterwithin{table}{section}
+}
+
+%\definecolor{ColorDropImpact}{rgb}{0.99,0.88,0.57}
+%\makeatletter
+%\usepackage{xpatch}
+%\xpatchcmd{\part}{\thispagestyle{plain}}
+%{\pagecolor{ColorDropImpact}\thispagestyle{plain}}{}{}
+%\xpatchcmd{\@endpart}{\vfil\newpage}{\vfil\newpage
+%	\pagecolor{white}}{}{}
+%\makeatother
+
+\newcommand{\thesistitle}{Viscous Free-Surface Flows}
+\newcommand{\thesistitledutch}{Viskeuze Stromingen bij Vrije-Oppervlakken}
+\renewcommand{\bibname}{References}
+
+% For 130 mm textwidth
+% Whitespace on each side (non-text/non-figure) is approximately 2 cm each.
+\setlength{\hoffset}{-0.55cm}  %thesis margins and offsets %don't touch these
+\setlength{\textwidth}{13.0cm}
+\setlength{\textheight}{18.5cm}
+\setlength{\voffset}{-0.8cm}
+\setlength{\headheight}{0.5cm}
+\setlength{\headsep}{0.8cm}
+\setlength{\footskip}{1cm}
+\setlength{\oddsidemargin}{0cm}
+\setlength{\evensidemargin}{0cm}
+
+%% For 135 mm textwidth
+%\setlength{\hoffset}{-0.75cm}  %thesis margins and offsets %don't touch these
+%\setlength{\textwidth}{13.5cm}
+%\setlength{\textheight}{18.5cm}
+%\setlength{\voffset}{-0.8cm}
+%\setlength{\headheight}{0.5cm}
+%\setlength{\headsep}{0.8cm}
+%\setlength{\footskip}{1cm}
+%\setlength{\oddsidemargin}{0cm}
+%\setlength{\evensidemargin}{0cm}
+
+\setcounter{tocdepth}{1} %set depth of the table of contents
+
+
+% Commands
+\newcommand{\Wef}{\mathit{We}_\mathit{f}}
+\newcommand{\Cas}{\mathit{Ca}_\mathit{s}}
+\newcommand{\Can}{\mathit{Ca}}
+%% Oh numbers
+\newcommand{\Ohn}{\mathit{Oh}}
+\newcommand{\Ohd}{\mathit{Oh}_\mathit{d}}
+\newcommand{\Ohc}{\mathit{Oh}_\mathit{d,c}}
+\newcommand{\Ohs}{\mathit{Oh}_\mathit{s}}
+\newcommand{\Ohf}{\mathit{Oh}_\mathit{f}}
+\newcommand{\Oha}{\mathit{Oh}_\mathit{a}}
+
+\newcommand{\gammaaf}{\gamma_\mathit{af}}
+\newcommand{\gammasf}{\gamma_\mathit{sf}}
+\newcommand{\gammasa}{\gamma_\mathit{sa}}
+\newcommand{\Ren}{\mathit{Re}}
+\newcommand{\Wen}{\mathit{We}}
+\newcommand{\Bon}{\mathit{Bo}}
+\newcommand{\Boc}{\mathit{Bo}_\mathit{c}}
+
+%% todonotes
+\usepackage[obeyFinal,colorinlistoftodos]{todonotes}
+\tikzset{notestyleraw/.append style={align=center}}
+
+% todonotes specific macros begin!
+\definecolor{Ch1}{HTML}{aacfed}
+\newcommand{\todoChOne}[2]{\todo[color=Ch1!60, #1]{#2}}
+
+\definecolor{Ch2}{HTML}{abceec}
+\newcommand{\todoChTwo}[2]{\todo[color=Ch2, #1]{#2}}
+
+\definecolor{Ch3}{HTML}{c9eaf6}
+\newcommand{\todoChThree}[2]{\todo[color=Ch3, #1]{#2}}
+
+\definecolor{Ch4}{HTML}{d1ecee}
+\newcommand{\todoChFour}[2]{\todo[color=Ch4, #1]{#2}}
+
+\definecolor{Ch5}{HTML}{c6e6dc}
+\newcommand{\todoChFive}[2]{\todo[color=Ch5, #1]{#2}}
+
+\definecolor{Ch6}{HTML}{e5f2e0}
+\newcommand{\todoChSix}[2]{\todo[color=Ch6, #1]{#2}}
+
+\usepackage{lipsum}
+
+\begin{document}
+
+\frontmatter  %start front matter
+
+\input{frontmatter.tex}  %include front matter file (everything before the table of contents
+%
+\cleardoublepage \pagenumbering{roman}  \pdfbookmark[1]{Contents}{contents}  \tableofcontents \cleardoublepage  
+%start at correct side of left/right pages, change numbering to roman numerals (I II III IV), start TOC, clear double page, change page numbers to arabic numbers (1234)
+\pagenumbering{arabic} \setcounter{page}{1} %set the counter to 1
+%
+\mainmatter
+
+%\addthumb{Chapter  0}{\huge{\textbf{\arabic{chapter}}}}{white}{gray}
+\input{0_Introduction/index}
+\stopthumb
+%
+\part{Drop Impact}\label{PartA}
+%
+%%\addthumb{Chapter  1}{\huge{\textbf{\arabic{chapter}}}}{white}{gray}
+%%\input{1_ChDropBetaMax/index}
+%%
+\addthumb{Chapter  2}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch1}
+\input{2_ChDropForces/index}  %Done
+%
+\addthumb{Chapter  3}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch2}
+\input{3_ChDropViscousBouncing/index}
+%
+\addthumb{Chapter  4}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch3}
+\input{4_ChDropBouncingOnFilm/index}
+%
+\addthumb{Chapter  5}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch4}
+\input{5_ChDropOnDrop/index}  %Done
+%
+\stopthumb
+%
+\part{Retraction \& Bursting}\label{PartB}
+%
+\addthumb{Chapter  6}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch5}
+\input{6_ChTaylorCulick/index} %Done
+%
+\addthumb{Chapter  7}{\huge{\textbf{\arabic{chapter}}}}{black}{Ch6}
+\input{7_ChBurstingBubbleVP/index}
+%
+\stopthumb
+
+\bookmarksetup{startatroot}% this is it
+\addtocontents{toc}{\bigskip}% perhaps as well
+
+\input{0_Conclusion/index}
+
+%
+%\nocite{*}
+\bibliography{biblioClean_v12}
+%
+
+\backmatter
+\include{backmatter/summary}  %summary English (obligatory)
+\include{backmatter/samenvatting} %summary Dutch (obligatory)
+\include{backmatter/acknowledgements}
+\include{backmatter/bio}
+%\include{backmatter/scientificoutput}
+
+\cleardoublepage 
+
+\end{document}

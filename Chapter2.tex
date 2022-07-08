@@ -1,0 +1,363 @@
+\chapter[When does a drop stop bouncing?]{When does a drop stop bouncing?\footnote{In preparation as: \textbf{Vatsal Sanjay}, Pierre Chantelot, and Detlef Lohse, \textit{When does a drop stop bouncing?}, J. Fluid Mech. Simulations are done by Sanjay; analysis and writing by Sanjay and Chantelot; and supervision by Lohse. Proofread by everyone.}}
+\label{chap:DropViscousBouncing}
+\chaptermark{Viscous drop impact} %this is used at the top of your page to denote the chapter, used in cases where the title is long
+
+As a liquid drop impacts a non-wetting substrate in presence of a gravitational field, it spreads while converting the initial kinetic energy into surface energy to reach a maximum extent which only weakly depends on the initial impact velocity. At this stage, the drop stops and then recoils following a capillary-driven Taylor-Culick type retraction, gaining kinetic energy as its surface area decreases. This drop recoil creates a radially symmetric flow inside the drop. The presence of the substrate creates an asymmetry and directs this flow in the upward direction against gravity. Throughout these stages, viscous dissipation enervate the internal momentum of the flow. Eventually, at the end of the retraction stage, if the upward flow is strong enough to overcome gravity, the drop bounces off the non-wetting substrate. In this article, we investigate how viscous stresses and gravity conspire against capillarity to inhibit the drop to bounce off non-wetting substrates. Drawing an analogy with the case of coalescence-induced jumping of two identical drops, we propose the criterion $\Ohc + \Boc = 1$ (i.e., sum of the critical drop Ohnesorge and Bond numbers being one), for this bouncing to non-bouncing transition and check its validity by employing axially symmetric direct numerical simulations. We also delve into the two asymptotes ($\Ohc = 1$ for $\Bon \ll 1$, and $\Boc = 1$ for $\Ohd \ll 1$) to demystify the mechanisms associated to this transition and analyze the salient characteristics of the drop impact process, including the contact time, coefficient of restitution, and energy budgets.
+
+\clearpage
+
+\section{Introduction}
+\label{Ch3::sec:Intro}
+
+Drop impacts have intrigued scientists ever since Leonardo da Vinci sketched a water drop splashing onto a sheet of paper in the margin of folio 33r in Codex Hammer/Leicester (1506 -- 1510) \citep{da1508notebooks}. In particular, the striking patterns created by drop fragmentation, at high impact velocity, have attracted attention \citep{rein1993phenomena, yarin2006drop, villermaux2011drop, kim2020raindrop}. 
+Lower velocity impacts, although they do not cause drops to shatter, also give rise to a rich variety of phenomena \citep{worthington1877xxviii, worthington1877second, chandra1991collision, thoroddsen2008high, yarin2006drop, josserand2016drop}.
+The rebound of drops on non-wetting substrates may be one of the most fascinating of such interactions \citep{richard2000bouncing, richard2002contact, tsai2009drop}.
+
+Upon impact, the liquid first spreads \citep{philippi2016, Gordillo2018} until it reaches its maximal extent \citep{clanet2004,laan2014maximum,wildeman2016spreading,gordillo2019theory}. 
+It then recoils, following a Taylor-Culick type retraction parallel to the substrate \citep{taylor-1959-procrsoclonda, culick-1960-japplphys, bartolo2005retraction, pierson2020revisiting, deka2020revisiting, sanjay2022taylor}, and ultimately bounces off in an elongated shape perpendicular to the substrate \citep{richard2000bouncing, yarin2006drop, josserand2016drop}. Furthermore, throughout these stages, viscous dissipation enervate the internal momentum of the flow and can even suppress bouncing \citep{wildeman2016spreading, jha2020viscous, ramirez2020lifting}.
+
+Such rebounds abound in nature, as non-wetting surfaces provide plants and animals a natural way to keep dry \citep{neinhuis1997characterization, quere2008wetting}, and are relevant in many industrial processes \citep{yarin2017}, such as inkjet printing \cite{lohse2022fundamental}, cooling applications \cite{kim2007spray, shiri2017heat, jowkar2019rebounding}, pesticides application \cite{he2021optimization, hoffman2021controlling}, and criminal forensics \cite{smith2018influence}. In some applications, it is pertinent that drops ricochet off the surface, such as self-cleaning \citep{blossey2003self}, keeping clothes dry \citep{liu2008hydrophobic}, and anti-fogging surfaces \citep{mouterde2017antifogging}. 
+However, in most applications, bouncing must be suppressed, for example in inkjet printing \citep{lohse2022fundamental}, cooling applications \citep{kim2007spray, shiri2017heat, jowkar2019rebounding}, pesticides application \citep{he2021optimization}, and criminal forensics \citep{smith2018influence}. 
+
+Therefore, it is natural to wonder when does a drop stop bouncing? On one hand, \citet{biance2006} found that heavy drops, i.e., drops larger than their gravito-capillary length $l_c = \sqrt{\gamma/\rho_dg}$, where $\gamma$ is the drop-air surface tension coefficient, $\rho_d$ is the density of the drop and $g$ is the acceleration due to gravity, cannot bounce.
+On the other hand, \citet{jha2020viscous} showed that there exists a critical viscosity, two orders of magnitude higher than that of water, beyond which aqueous drops do not bounce either, irrespective of their impact velocity. I.e., both gravity and viscosity counteract the bouncing. In this chapter, we investigate and quantify how exactly gravity and viscous stresses conspire against capillarity to prevent drops from bouncing off non-wetting substrates, using direct numerical simulations. We focus on evidencing the mechanisms of bouncing inhibition, and exhibit a simple criterion delineating the bouncing to non-bouncing transition through an analogy with coalescence-induced drop jumping \citep{boreyko2009, mouterde2017merging, lecointre2019ballistics}.
+
+The chapter is organized as follows: \S~\ref{sec:method} discusses the governing equations employed in this work. \S~\ref{sec:bouncingInhibition} explores the bouncing to non-bouncing transition and formulates a criterion for the inhibition of bouncing based on first principles followed by \S~\ref{sec:LimitingCases} which delves into the limiting cases of this criterion. The paper ends with conclusions and an outlook on future work in \S~\ref{sec:Conclusion}.  
+
+\section{Governing equations}
+\label{sec:method}
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/Figure0_Schematic_Thesis.eps}
+	\caption{Axi-symmetric computational domain used to study impact of a drop with radius $R$ and velocity $V$ on an ideal non-wetting substrate. The subscripts $d$ and $a$ denote the drop and air, respectively, to distinguish their material properties, namely, density $\rho$ and viscosity $\eta$. The drop-air surface tension coefficient is $\gamma$ and $g$ denotes the acceleration due to gravity. The gray dashed-dotted line represents the axis of symmetry, $r = 0$. Boundary outflow is applied at the top and side boundaries (tangential stresses, normal velocity gradient, and ambient pressure are set to zero). The domain boundaries are far enough not to influence the drop impact process ($\mathcal{L}_{\text{max}} \gg R$).}
+	\label{Ch3::fig:schematic}
+\end{figure}
+
+We employ direct numerical simulations to study the drop impact process (figure~\ref{Ch3::fig:schematic}), using the free software program Basilisk C \citep{basiliskpopinet1} that employs the geometric volume of fluid (VoF) method for interface reconstruction \citep{popinet2009accurate}. For an incompressible flow, the mass conservation requires the velocity field to be divergence-free (tildes denote dimensionless quantities throughout this manuscript),
+
+\begin{align}
+	\boldsymbol{\tilde{\nabla}\cdot \tilde{v}} = 0,
+\end{align}
+
+\noindent where we non-dimensionalize the velocity field with the inertio-capillary velocity $ V_{\rho\gamma} = \sqrt{\gamma/\rho_d R}$, where $\gamma$, $\rho_d$ and $R$ are the surface tension coefficient between the drop and air, density of the drop, and its radius, respectively, see figure~\ref{Ch3::fig:schematic}). We can further non-dimensionalize all lengths with the radius of the drop $R$, time with the inertio-capillary timescale $\tau_{\rho\gamma} = R/V_{\rho\gamma} = \sqrt{\rho_dR^3/\gamma}$, and pressure with the capillary pressure, $p_\gamma = \gamma/R$, to write the momentum equation as
+
+\begin{align}
+	\label{eq::NS}
+	\frac{\partial \left(\tilde{\rho}\boldsymbol{\tilde{v}}\right)}{\partial \tilde{t}} + \boldsymbol{\nabla}\left(\tilde{\rho}\boldsymbol{\tilde{v}}\boldsymbol{\tilde{v}}\right) = -\boldsymbol{\tilde{\nabla}} \tilde{p}^{\prime} + \boldsymbol{\tilde{\nabla}\cdot}\left(2\Ohn\boldsymbol{\tilde{\mathcal{D}}}\right)  + \boldsymbol{\tilde{f}},
+\end{align}
+
+\noindent where the deformation tensor, $\boldsymbol{\mathcal{D}}$ is the symmetric part of the velocity gradient tensor $\left(= \left(\nabla\boldsymbol{v} + \left(\nabla\boldsymbol{v}\right)^{\text{T}}\right)/2\right)$. Note that axial symmetry is assumed throughout this chapter. The Ohnesorge number $\Ohn$ (ratio of inertio-capillary to inertio-viscous time scales) and the dimensionless density $\tilde{\rho}$ are written using the one-fluid approximation \citep{prosperetti2009computational, tryggvason2011direct} as 
+
+\begin{align}
+	\label{Ch3::eq::Oh}
+	\Ohn &= \Psi\Ohd + \left(1-\Psi\right)\Oha,\\
+	\label{Ch3::eq::density}
+	\tilde{\rho} &= \Psi + \left(1-\Psi\right)\frac{\rho_a}{\rho_d},
+\end{align}
+
+\noindent where $\Psi$ is the VoF tracer ($= 1$ for drop and $0$ otherwise), and $\rho_a/\rho_d$ is the air--drop density ratio. Here, 
+
+\begin{align}
+	\Ohd = \frac{\eta_d}{\sqrt{\rho_d\gamma R}}\quad\text{and}\quad\Oha = \frac{\eta_a}{\sqrt{\rho_d\gamma R}}
+\end{align}
+
+\noindent are the Ohnesorge numbers based on the viscosities of the liquid drop and of air, respectively. 
+
+To minimize the influence of the surrounding medium, we keep $\rho_a/\rho_d$ and $\Oha$ fixed at $10^{-3}$ and $10^{-5}$, respectively. Lastly, $\tilde{p}^{\prime}$ denotes the reduced pressure field, $\tilde{p}' = \tilde{p}\,+\,\Bon\tilde{\rho}\tilde{z}$, where, $\tilde{p}$ and $\Bon\tilde{\rho}\tilde{z}$ represent the mechanical and the hydrostatic pressures, respectively. Here, the Bond number $\Bon$ compares gravity to the surface tension force and is given by
+
+\begin{align}
+	\Bon = \frac{\rho_dgR^2}{\gamma},
+\end{align}
+
+\noindent and $\tilde{z}$ is the distance away from the non-wetting substrate (see figure~\ref{Ch3::fig:schematic}). Using this reduced pressure approach ensures an exact hydrostatic balance as described in \citet{popinet2018numerical, basiliskpopinet3}. This formulation requires an additional singular body force at the interface such that $\boldsymbol{\tilde{f}}$ takes the form \citep{brackbill1992continuum},
+
+\begin{align}
+	\boldsymbol{\tilde{f}} \approx \left(\tilde{\kappa} + \Bon\left(1 -\frac{\rho_a}{\rho_d}\right)\tilde{z}\right)\boldsymbol{\tilde{\nabla}}\Psi
+\end{align}
+
+\noindent where the first and second terms on the right-hand side are the local capillary and hydrostatic pressure jumps across the interface, respectively with $\tilde{\kappa}$ the interfacial curvature calculated using the height-function approach \citep{popinet2009accurate}. 
+
+Figure~\ref{Ch3::fig:schematic} shows the axi-symmetric computational domain where we solve the equations discussed above. Initially, we assume that the drop is spherical and that it impacts with a dimensionless velocity, $\tilde{V} = V/V_{\rho\gamma} = \sqrt{\Wen}$, where the impact Weber number 
+
+\begin{align}
+	\Wen = \frac{\rho_d R V^2}{\gamma}
+\end{align}
+
+\noindent is the ratio of the inertial pressure during impact to the capillary pressure. We refer the readers to \S~\ref{sec:NumMethods}, and \citet{popinet2009accurate, popinet2015quadtree, basiliskpopinet1, zhang2022impact, basiliskVatsalViscousBouncing} for details of the computational method employed in this work.
+
+\section{Bouncing inhibition}
+\label{sec:bouncingInhibition}
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/Figure1_RegimeMap_v6_Thesis.eps}
+	\caption{Regime map in terms of the Bond number $\Bon = \rho_dgR^2/\gamma$ and the drop Ohnesorge number $\Ohd = \eta_d/\sqrt{\rho_d\gamma R}$, marking the bouncing and non-bouncing regimes identified in this work. The data points represent the transition between bouncing and non-bouncing regimes at different Weber numbers $\Wen$, and the insets illustrate typical cases in these regimes. The yellow data points are extracted from the literature for comparison. The solid black line delineates the theoretical prediction of this transition (equation~\eqref{eq:MainEquation}). Lastly, the black dotted vertical and horizontal lines mark the limiting cases, $\Ohc = 1$ and $\Boc = 1$, respectively. See also supplementary movie~\red{1}.}
+	\label{fig:RegimeMap}
+\end{figure}
+\begin{sidewaysfigure}
+	\centering
+	\includegraphics[width=180mm]{3_ChDropViscousBouncing/fig/Figure2_Phenomenology_v2_Thesis.eps}
+	\caption{Three representative cases away from the two asymptotes: direct numerical simulations snapshots illustrating the drop impact dynamics for $\left(\Ohd, \Bon\right)$ = $\left(0.2, 0.4\right)$ (a), = $\left(0.6, 0.4\right)$ (b), and = $\left(0.2, 0.8\right)$ (c) . The left hand side of each numerical snapshot shows the dimensionless viscous dissipation function $\tilde{\xi}_\eta = 2\Ohn\left(\boldsymbol{\tilde{\mathcal{D}}:\tilde{\mathcal{D}}}\right)$ on a $\log_{10}$ scale to identify regions of maximum dissipation (black). The right hand side shows the magnitude of the velocity field normalized by the initial impact velocity, $V$. The black velocity vectors are plotted in the center of mass reference frame of the drop to clearly show the internal flow. For all the cases shown here, the impact Weber number is $\Wen = 20$. See also supplementary movie~\red{SM2}.}
+	\label{fig:Phenomenology}
+\end{sidewaysfigure}
+
+We investigate the behavior of drops impacting on non-wetting substrates by exploring the influence of the following dimensionless parameters: the Weber number $\Wen = \rho R V^2/\gamma$, the Bond number $\Bon = \rho_dgR^2/\gamma $, and the Ohnesorge number $\Ohd = \eta_d/\sqrt{\rho_d\gamma R}$. In Figure~\ref{fig:RegimeMap}, we evidence the bouncing to non--bouncing transition in the parameter space spanned by the Ohnesorge and Bond numbers for several fixed Weber numbers. We extract several key pieces of information from this regime map. 
+
+\begin{itemize}
+	\item[(i)] The Weber number has a small influence on the transition between the bouncing and non--bouncing regime in the range probed in this study, $We = 1$ -- $50$ , consistent with \citet{jha2020viscous} for the bouncing inhibition of viscous drops (also see appendix~\ref{app:Weber}).
+	\item[(ii)] We recover the two limiting cases of non--bouncing (see insets of figure~\ref{fig:RegimeMap}): drops smaller than their visco-capillary length, (i.e., $R < \eta_d^2/\rho_d\gamma$) stop bouncing due to viscous dissipation \citep{jha2020viscous}, while those larger than their gravito-capillary length, (i.e., $R > \sqrt{\gamma/\rho_d g}$) cannot bounce due to their weight \citep{biance2006}. We elaborate on the mechanisms of rebound inhibition in  these two non--bouncing regimes in \S~\ref{sec:LimitingCases}. 
+	\item[(iii)]  Experiments performed with millimeter--sized drops of water or silicone oil do not lie on either asymptote, suggesting that both the effect of viscosity and gravity need to be taken into account to predict the bouncing to non--bouncing transition.
+\end{itemize}
+
+In this section, we focus on situations where bouncing is prevented by both viscous and gravitational effects (i.e., $\Bon < 1$ and $\Ohd < 1$).
+Figure~\ref{fig:Phenomenology} shows snapshots illustrating three representative cases lying in this region of the parameter space for $\Wen = 20$. Each snapshot displays three pieces of information: (i) the position of the liquid--air interface, (ii) the dimensionless rate of viscous dissipation per unit volume (i.e., the viscous dissipation function, left panel), and (iii) the magnitude of the velocity field normalized by the impact velocity (right panel). For $\Ohd = 0.2$ and $\Bon = 0.4$ (figure~\ref{fig:Phenomenology}a), the drop undergoes typical rebound dynamics. The liquid first spreads radially up to $t = t_m$, when the maximum extent is reached \citep{clanet2004, eggers2010drop, laan2014maximum, wildeman2016spreading}. This stage is followed by liquid retraction \citep{bartolo2005retraction}, parallel to the substrate, until the drop contracts ($t = 2t_m$) and the motion becomes vertical \citep{chantelot2018rebonds, zhang2022impact}. Finally, the drop leaves the substrate at $t = 2.25\tau_{\rho\gamma}$ \citep{richard2000bouncing, richard2002contact}. 
+
+Surprisingly, increasing $\Ohd$ to $0.6$, below the critical value reported by \citet{jha2020viscous}, while keeping $\Bon = 0.4$ (figure~\ref{fig:Phenomenology}b) prevents the rebound. The motion is damped before the drop can bounce off the substrate.
+Similarly, increasing $\Bon$ to 0.8, below the critical value reported by \citet{biance2006}, while fixing $\Ohd = 0.2$ (figure~\ref{fig:Phenomenology}c), also inhibits bouncing.  Yet, the deposited liquid undergoes multiple oscillation cycles on the substrate before coming to rest (see the last snapshot $t = 3\tau_{\rho\gamma}$).
+
+In all three cases, the impact dynamics and flow in the drop are qualitatively similar until the maximum extent is reached at $t=t_m$. 
+At this instant, the absence of internal flow suggests that the initial kinetic energy has either been converted into surface energy or lost to viscous dissipation, which occurs throughout the drop volume owing to $\Ohd \sim \mathcal{O}\left(0.1\right)$ \citep{eggers2010drop}.
+Close to the bouncing to non--bouncing transition, the rebound can thus be understood as a process which converts an initial surface energy into kinetic energy, disentangling the later stages of the rebound from the initial impact dynamics.
+
+This observation prompts us to introduce an analogy with coalescence--induced jumping, in which an excess surface energy, gained during coalescence, is converted into upward motion of the liquid \citep{boreyko2009}. The spread drop, at rest at $t = t_m$, reduces its surface area through a Taylor-Culick type retraction \citep{bartolo2005retraction}, converting excess surface energy into kinetic energy. The capillary force driving this radially inwards flow is
+
+\begin{align}
+	\label{eq:drivingCapillary}
+	F_\gamma \sim \gamma R.
+\end{align}
+
+\noindent Similarly as in coalescence--induced jumping of two identical drops, a dissipative force $F_\eta \sim \Omega\eta_d\nabla^2v$, where $\Omega$ is the volume of the drop and $v$ is a typical radial flow velocity, opposes the capillarity driven flow \citep{mouterde2017merging, lecointre2019ballistics}. Taking $v$ as $V_{\rho\gamma}$ at leading order, the resistive viscous force scales as
+
+\begin{align}
+	\label{eq:resistVisc}
+	F_\eta \sim \eta V_{\rho\gamma} R,
+\end{align}
+
+\noindent and the effective momentum converging in the radial direction reads
+
+\begin{align}
+	\label{eq:flowChange}
+	P_r \sim \int \left(F_\gamma - F_\eta\right) \mathrm{d}t.
+\end{align}
+
+\noindent The asymmetry stemming from the presence of the substrate enables the conversion of the radially inward momentum to the upwards direction (figure~\ref{fig:Phenomenology}, $t = 2t_m$). Following \citet{mouterde2017merging, lecointre2019ballistics}, we assume that the vertical momentum scales with the radial one such that $P_v \sim P_r$, allowing us to determine a criterion for the bouncing transition by balancing the rate of change of vertical momentum with the drop's weight $F_g$
+
+\begin{align}
+	\label{eq:competeGravity1}
+	\frac{dP_v}{dt} = F_g \sim \rho_dR^3g.
+\end{align}
+
+\noindent Using equations~\eqref{eq:drivingCapillary} --~\eqref{eq:flowChange}, we obtain 
+
+\begin{align}
+	%\label{eq:competeGravity2}
+	%F_\gamma - F_\eta &= F_g,\\
+	\label{eq:competeGravity3}
+	\gamma R - \eta V_{\rho\gamma} R &\sim \rho_dR^3g.
+\end{align}
+
+\noindent Lastly, substituting $V_{\rho\gamma} = \sqrt{\gamma/\rho_dR}$, and rearranging, we arrive at a criterion to determine the bouncing to non-bouncing transition as
+
+\begin{align}
+	\label{eq:MainEquation}
+	\Ohc + \Boc = 1,
+\end{align}
+
+\noindent which is independent of the impact Weber number $\Wen$. In equation~\eqref{eq:MainEquation} and throughout the manuscript, the subscript $c$ stands for \lq critical\rq. Equation~\eqref{eq:MainEquation} is the main equation of this chapter. In principle, the derivation of this equation only suggests $\sim 1$ on the right hand side of equation~\eqref{eq:MainEquation} and not $= 1$, but as we will see from the limiting cases treated in \S~\ref{sec:LimitingCases}, the equality sign is justified. 
+
+We test the criterion in equation~\eqref{eq:MainEquation} for the bouncing and non-bouncing transition against data extracted from our direct numerical simulations and experiments from \citet{biance2006, jha2020viscous, vatsalInProgressFilms}. 
+In figure~\ref{fig:RegimeMap}, the solid black line representing equation~\eqref{eq:MainEquation} is in excellent quantitative agreement with the data when viscous and gravitational effects conspire to inhibit bouncing, as well as in the two limiting regimes, $\Ohc = 1$ for $\Bon \ll 1$ \citep{jha2020viscous}, and $\Bon = 1$ for $\Ohd \ll 1$ \citep{biance2006} (black dotted lines). 
+In the next section, we focus on evidencing the physical mechanisms leading to bouncing suppression in each of the two limiting case.
+
+\section{Limiting cases}\label{sec:LimitingCases}
+\subsection{How does a viscous drop stop bouncing?}\label{sec:LimitingCases:Oh}
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/Figure3_Ohlimit_v5_Thesis.eps}
+	\caption{Light drop asymptote, $\Bon = 0$: variation of the (a) contact time $t_c$ normalized by the inertio-capillary timescale $\tau_{\rho\gamma} = \sqrt{\rho_dR^3/\gamma}$, and (b) restitution coefficient $\varepsilon$ with the drop Ohnesorge number $\Ohd$ at different Weber numbers $\Wen$. In both panels, the solid lines represent the theoretical predictions using a spring-mass-damper system \citep[contact time, equation~\eqref{eqn:JhaEtAl_time} and restitution coefficient, equation~\eqref{eqn:JhaEtAl_epsilon},][]{jha2020viscous}. The horizontal dotted lines represent the contact time and restitution coefficient values in the limit of inviscid drops ($\Ohd \ll 1$). The limiting value of contact time $\tau_0 = 2.25$ is independent of $\Wen$ while that of restitution coefficient $\varepsilon_0$ depends on $\Wen$. Lastly, the dotted black vertical lines and the gray shaded regions mark the critical Ohnesorge number $\Ohc \sim \mathcal{O}\left(1\right)$ beyond which drops do not bounce.}
+	\label{fig:Ohlim}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/Figure3b_Ohlimit_v4_Thesis_v2.eps}
+	\caption{Details of the light drop asymptote, $\Bon = 0$: energy budgets for typical drop impacts at $\Wen = 1$ for $\Ohd = 0.001$ (a) and $\Ohd =  2$ (b). $E_k$ and $E_\eta$ represent the kinetic energy and viscous dissipation, respectively. $\Delta E_s$ denote the the change in surface energy with its zero set at $t = 0$. The numerical snapshots in the insets illustrate the drop morphologies and the anatomy of flow inside them. Left hand side of each snapshot shows the dimensionless viscous dissipation function $\tilde{\xi}_\eta = 2\Ohn\left(\boldsymbol{\tilde{\mathcal{D}}:\tilde{\mathcal{D}}}\right)$ on a $\log_{10}$ scale to identify regions of maximum dissipation (black). The right hand side shows the magnitude of the velocity field normalized by the initial impact velocity, $V$. The black dotted lines in panels (a) and (b) mark the instant when the drop takes off and when the normal contact force between the drop and the substrate is minimum, respectively ($t = t_c$). Energy distributions at $t_c$ for $\Wen = 1$ (c)  and $\Wen = 20$ (d) as a function of $\Ohd$. The black vertical lines and the gray shaded regions mark the critical Ohnesorge number $\Ohc \sim \mathcal{O}\left(1\right)$ beyond which drops do not bounce. See also supplementary movie~\red{3}.}
+	\label{fig:OhlimDescription}
+\end{figure}
+
+We first investigate how viscous dissipation prevents drops much smaller than their gravito-capillary length (\emph{i.e.} with $\Bon \ll 1$) from bouncing. In this regime, the transition criterion, equation \eqref{eq:MainEquation}, reduces to
+\begin{align}
+	\Ohc = 1.
+\end{align}
+
+\noindent We sweep across this asymptote by setting $\Bon = 0$ and systematically varying the drop Ohnesorge number, $\Ohd$. We characterize the rebound behavior by measuring the apparent contact time between the drop and the substrate $t_c$ and the coefficient of restitution $\varepsilon$, that we define as $\varepsilon = v_\text{cm}(t_c)/V$, where $v_\text{cm}(t_c)$ is the center of mass velocity at take-off.
+The determination of $t_c$ and $\varepsilon$ from the DNS is detailed in appendix~\ref{app:restitution in simulations}. In figure~\ref{fig:Ohlim}, we plot the coefficient of restitution $\varepsilon$ and the normalized contact time $t_c/\tau_{\rho\gamma}$ as a function of $Oh_d$ for Weber numbers ranging from 1 to 50. The effect of $\Ohd$ on $t_c$ and $\varepsilon$ is markedly different. 
+
+On the one hand, the coefficient of restitution monotonically decreases from its inviscid, Weber dependent value $\varepsilon_0$ with increasing $\Ohd$, until a critical Ohnesorge number $\Ohc$, of order one, marking bouncing inhibition is reached. On the other hand, even increasing $\Ohd$ by over two orders of magnitude hardly affects $t_c$ which keeps its inviscid, Weber independent value $t_c = \tau_0 = 2.25\tau$, expected from the inertio--capillary scaling \citep{wachters1966heat, richard2002contact}, until $t_c$ diverges as $\Ohc$ is reached. The value is also in good agreement with the fundamental mode of drop oscillation $\pi/\sqrt 2$ \citep{rayleigh1879capillary}. Therefore, even as $\Ohd$ is increased, the drop impact and bouncing behavior are still analogous to one complete drop oscillation cycle \citep{jha2020viscous}. 
+
+To further investigate these behaviors, we seek to understand the different energy transfers by looking at the overall energy budgets in figure~\ref{fig:OhlimDescription}. The energy balance reads
+
+\begin{align}
+	\label{eqn:OhEnergyBalance}
+	\tilde{E}_0 = \tilde{E}_k(\tilde{t}) + \Delta\tilde{E}_\gamma(\tilde{t}) + \tilde{E}_\eta(\tilde{t}),
+\end{align}
+
+\noindent where the energies are normalized using the capillary energy scale ($\gamma R^2$), and $E_0$ is the initial kinetic energy of the drop, ($\tilde{E}_0 = E_0/(\gamma R^2) = (2\pi/3)\Wen$). At any time $t$, $E_k(t)$ and $E_\gamma(t)$ are the kinetic and surface energy of the drop, with $\Delta E_\gamma(t) = E_\gamma(t) - E_\gamma(t = 0)$. Finally, $E_\eta(t)$ is the viscous dissipation until time $t$. Readers are referred to \citet{landau2013course, wildeman2016spreading, ramirez2020lifting, sanjay2022taylor} for details of energy budget calculations. 
+
+The initial kinetic energy is transferred into surface energy during the impact and spreading phases and back during the retraction and take-off stages. Throughout the process, viscous stresses dissipate energy, hampering the recovery of drop's kinetic energy. For low $\Wen$ and $\Ohd$, the drop recovers a large proportion of initial kinetic energy, $E_k(t_c) \approx 0.75E_0$ (figure~\ref{fig:OhlimDescription}a and $\Ohd \ll 1$ in figure~\ref{fig:OhlimDescription}c). It is noteworthy that despite having a small $\Ohd$, almost $20\%$ of the initial kinetic energy still goes into viscous dissipation, which is restricted to the boundary layer at the drop-air interface and happens primarily due to the high-frequency capillary waves on the surface of the drop \cite[see the insets of figure~\ref{fig:OhlimDescription}a and][]{renardy2003pyramidal, zhang2022impact}. On the contrary, at high $\Ohd$, the viscous boundary layer is as large as the drop itself \citep{eggers2010drop} and consequently, dissipation happens throughout the drop (see figure~\ref{fig:OhlimDescription}b and its insets). Beyond the critical Ohnesorge number $\Ohc$, the drop impact process becomes over-damped as the drop loses all its energy by the time it reaches maximum compression, after which it slowly relaxes back to a spherical shape and stays on the substrate (figure~\ref{fig:OhlimDescription}b and $\Ohd \sim \mathcal{O}\left(1\right)$ in figure~\ref{fig:OhlimDescription}c). We can predict this $\Ohc$ by balancing the initial kinetic energy $E_0 = (2\pi/3)\rho_dR^3V^2$ with the viscous dissipation during drop impact given by,
+
+\begin{align}
+	E_\eta(t) = \int_{0}^{t}\int_\Omega \xi_\eta \mathrm{d}\Omega \mathrm{d}t = 2\eta_d\int_{0}^{t}\int_\Omega\left(\boldsymbol{\mathcal{D}:\mathcal{D}}\right) \mathrm{d}\Omega \mathrm{d}t,
+\end{align}
+
+\noindent where $\xi_\eta$ is the viscous dissipation function and $d\Omega$ is the differential volume of the drop. Guided by our observation that dissipation occurs throughout the drop, we assume that $\|\boldsymbol{\mathcal{D}}\| \sim V/R$, $\Omega \sim R^3$, and we know that even as $\Ohd$ approaches $\Ohc$, we can still approximate the contact time with the inertio-capillary timescale. Therefore, we get
+
+\begin{align}
+	E_\eta(\tau_{\rho\gamma}) \sim \eta_d\left(\frac{V}{R}\right)^2R^3\tau_{\rho\gamma}.
+\end{align}
+
+\noindent Balancing $E_\eta\left(\tau_{\rho\gamma}\right)$ with the initial kinetic energy $E_0 \sim \rho_dR^3V^2$ gives,
+
+\begin{align}
+%	E_0 &\sim E_\eta(\tau_{\rho\gamma}),\\
+	\rho_dR^3V^2 \sim  \eta_d\left(\frac{V}{R}\right)^2R^3\tau_{\rho\gamma},
+\end{align}
+
+\noindent which on rearranging gives $\Ohc \sim \mathcal{O}\left(1\right)$, consistent with the $\Bon \to 0$ limit of equation~\eqref{eq:MainEquation}, and agreeing well with the gray shaded regions in figure~\ref{fig:Ohlim} and~\ref{fig:OhlimDescription}. Furthermore, at such high values of $\Ohd$, the drops become less deformable \citep{galeano2021capillary}, diminishing the fraction of energy that goes to surface energy at take off (figures~\ref{fig:OhlimDescription}c,d).
+
+To further rationalize these observations and predict the dependence of the rebound time and restitution coefficient on $\Ohd$, we compare our simulation results to the spring-mass-damper system that has been shown to capture these variations successfully \citep{jha2020viscous, vatsalInProgressFilms}. In such a model, the time of apparent contact is given by
+
+\begin{align}
+	\label{eqn:JhaEtAl_time}
+	t_c =  \tau_0\left(\frac{1}{\sqrt{1 - \left(\Ohd/\Ohc\right)^{2}}}\right),
+\end{align}
+
+\noindent and matches well with the simulation data (figure~\ref{fig:Ohlim}a). Here, the critical Ohnesorge number $\Ohc$ at which bouncing stops is taken from simulations. By evaluating the drop's take-off velocity at this instant, \citet{jha2020viscous} predicted the coefficient of restitution, written in our notations, as
+
+\begin{align}
+	\label{eqn:JhaEtAl_epsilon}
+	\varepsilon = \varepsilon_0\exp\left( \frac{-\beta \Ohd/\Ohc}{\sqrt{1 - \left(\Ohd/\Ohc\right)^{2}}} \right),
+\end{align}
+
+\noindent where $\varepsilon_0$ is the $\Wen$--dependent coefficient of restitution in the inviscid drop limit (see appendix~\ref{app:Weber}) and $\beta = 4 \pm 0.25$ is a fitting parameter that best fits our data (notice the remarkable agreement in figure~\ref{fig:Ohlim}b). Note that \citet{jha2020viscous} further reduced equation~\eqref{eqn:JhaEtAl_epsilon} to $\varepsilon \approx \varepsilon_0\exp\left(-\alpha\Ohd\right)$ for $\Ohd \ll \Ohc$, where $\alpha = \beta/\Ohc = 2.5 \pm 0.5$ best fits all their experimental datapoints, independent of the impact Weber number. The equivalent fitting parameter for our case is $\alpha^{\prime} = \beta^{\prime}/\Ohc = 3 \pm 1$, which is very close to \citet{jha2020viscous}, despite a difference in $\Bon$ \citep[$0$ here vs. $0.167$ for][also see \S~\ref{sec:LimitingCases:Bo}, and appendix~\ref{app:Weber}]{jha2020viscous}. 
+
+Lastly, figure~\ref{fig:Ohlim} also highlights that $\Ohc$ varies weakly with $\Wen$, $\Ohc = 1.75, 1.5, 1, 1$ at $\Wen = 1, 4, 20, 50$, respectively, as evidenced by the narrow grey shaded region, and in agreement with the limit predicted from equation \eqref{eq:MainEquation}. We stress that the variation of the coefficient of restitution in the shaded region, where $\varepsilon<0.1$, is weak and would not be noticed in typical side view experiments. Indeed, $\varepsilon = 0.1$ corresponds to a center of mass rebound height of $0.01$ times the initial impact height that sets $\Wen$. For $\Wen = 1$, this gives a rebound height of $10\,\si{\micro\meter}$ which is too small to be experimentally measurable. 
+
+The primary influence of $\Wen$ is to decrease the inviscid limit restitution $\varepsilon_0$. To understand this behavior, we also plot the energy distribution at take-off for $\Wen = 20$ in figure~\ref{fig:OhlimDescription}(d). We clearly observe that irrespective of the drop Ohnesorge number, the viscous dissipation is higher for $\Wen = 20$ as compared to that of $\Wen = 1$ (figure~\ref{fig:OhlimDescription}c). Even more strikingly, the fraction of energy lost to viscous dissipation amounts to almost 70\% of the initial energy, even in the inviscid drop limit for $\Wen = 20$. This increase in dissipation can be attributed to more deformable drops at higher $\Wen$ and flow enhancement during retraction owing to a strong radially inward flow field (see the inertial regime of chapter~\ref{chap:DropForces}). The dissipation is not only restricted to the boundary layers at the drop-air free-surface but also at the axis of drop when the retraction phase ends (see figure~\ref{Ch2:Fig1Dynamics} which has the same $\Wen$ based on the radius of the drop). Consequently, $\varepsilon$ decreases with increasing $\Wen$. We further elaborate on this variation in appendix~\ref{app:Weber}.
+
+
+\subsection{How does a heavy drop stop bouncing?}\label{sec:LimitingCases:Bo}
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/Figure4_Bolimit_v4_Thesis_v2.eps}
+	\caption{Inviscid drop asymptote ($\Ohd = 0.01 \ll 1$): variation of the (a) contact time $t_c$ normalized by the inertio-capillary timescale $\tau_{\rho\gamma} = \sqrt{\rho_dR^3/\gamma}$, and (b) restitution coefficient $\varepsilon$ with the Bond number $\Bon$ at different Weber numbers $\Wen$. In both panels, the solid lines represent the theoretical predictions from a spring-mass analogy \citep[equation~\ref{eqn:BianceEtAl_epsilon},][]{biance2006}. The horizontal dotted line in panel (b) represents the restitution coefficient values in the limit of zero Bond number ($\Bon \to 0$). This limiting value of restitution coefficient $\varepsilon_0$ depends on $\Wen$. Notice that although the restitution coefficients match with the predictions from the model, the contact time show slight deviations from the prediction of a constant contact time, $\tau_0 = 2.25$, when $\Boc$ is approached. Lastly, the dotted black vertical lines and the gray shaded regions mark the critical Bond number $\Boc \sim \mathcal{O}\left(1\right)$ beyond which drops do not bounce.}
+	\label{fig:Bolim}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/Figure4b_Bolimit_v4_Thesis_v2_1.eps}
+	\caption{Details of the inviscid drop asymptote ($\Ohd = 0.01 \ll 1$): energy budgets for typical drop impacts at $\Wen = 1$ for $\Bon = 0$ (a) and $\Bon = 2$ (b) in the limit of inviscid drops. $E_k$ and $E_\eta$ represent the kinetic energy and viscous dissipation, respectively. $\Delta E_g$ and $\Delta E_s$ denote the the change in gravitational potential energy and surface energy, respectively with their zeroes set at the instant of maximum spreading of the impacting drop, and at $t = 0$, respectively. The numerical snapshots in the insets illustrate the drop morphologies and the anatomy of flow inside them. Left hand side of each snapshot shows the dimensionless viscous dissipation function $\tilde{\xi}_\eta = 2\Ohn\left(\boldsymbol{\tilde{\mathcal{D}}:\tilde{\mathcal{D}}}\right)$ on a $\log_{10}$ scale to identify regions of maximum dissipation (black). The right hand side shows the magnitude of the velocity field normalized by the initial impact velocity $V$. The black dotted line in panel (a) marks the instant when the drop takes off, setting $t_c = 2.3\tau_{\rho\gamma}$. In panel (b), the black vertical lines and the gray shaded regions bound the time interval when the normal contact force between the drop and the substrate is zero. See also supplementary movie~\red{4}.}
+	\label{fig:BolimDescription}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/Figure4b_Bolimit_v4_Thesis_v2_2.eps}
+	\caption{Details of the inviscid drop asymptote ($\Ohd = 0.01 \ll 1$): energy distributions at $t_c$ for $\Wen = 1$ (a) and $\Wen = 20$ (b) as a function of $\Bon$. For non-bouncing cases, $t_c$ represents the end of first drop oscillation cycle, for example $t_c = 2.5\tau_{\rho\gamma}$ in figure~\ref{fig:BolimDescription}(b). The black vertical lines and the gray shaded regions in each panel mark the critical Bond number $\Boc \sim \mathcal{O}\left(1\right)$ beyond which drops do not bounce.}
+	\label{fig:BolimDescription2}
+\end{figure}
+
+For drops much larger than their visco-capillary lengths (drop Ohnesorge number $\Ohd \ll 1$), the criterion for bouncing inhibition (equation~\eqref{eq:MainEquation}) reduces to
+\begin{align}
+	\Boc = 1.
+\end{align}
+
+In this section, we sweep across this asymptote by setting $\Ohd = 0.01 \ll 1$ and systematically varying the Bond number, $\Bon$. The choice of $\Ohd$ stems from the constancy of $\varepsilon$ and viscous dissipation as shown in figures~\ref{fig:Ohlim} and~\ref{fig:OhlimDescription} for $\Ohd \lesssim 0.01$, and discussed later in this section.
+
+At this asymptote, increase in $\Bon$ hardly influences the drop contact time. This behavior is similar to the $\Ohd$ sweep at the $\Bon = 0$ asymptote (\S~\ref{sec:LimitingCases:Oh}). However, in contrast to that asymptote, even as we approach $\Boc$, beyond which the drop cannot leave the substrate, the contact time is only marginally higher than $\tau_0$ (its value at $\Bon = 0$, figure~\ref{fig:Bolim}a). 
+Of course, for $\Bon > \Boc$, the contact time $t_c$ is undefined. Similarly, as $\Bon = \Boc$ is reached, the restitution coefficient decreases sharply to zero. However, in the intermediate range, $0 < \Bon < \Boc$, the restitution coefficient deviates only slowly from $\varepsilon_0$, its $\Wen$-dependent value at zero Bond number (figure~\ref{fig:Bolim}b). 
+Finally, yet another similarity to the previous asymptote is the influence of increasing the impact Weber number, $\Wen$ which does not change the contact time but decreases the restitution coefficient monotonically (figure~\ref{fig:Bolim}b). Moreover, $\Wen$ only weakly influences the critical Bond number $\Boc$ (gray shaded region in figure~\ref{fig:Bolim}).
+
+To further investigate these behaviors, we seek to understand the different energy transfers by looking at the overall energy budgets in figure~\ref{fig:BolimDescription}. The energy balance (equation~\eqref{eqn:OhEnergyBalance}) now has an additional contribution due to gravitational potential energy, $\Delta E_g$, whose zero is set at the instant of maximum drop compression. The modified energy balance reads
+
+\begin{align}
+	\label{eqn:BoEnergyBalance}
+	\tilde{E}_0 = \tilde{E}_k(\tilde{t}) + \Delta\tilde{E}_g + \Delta\tilde{E}_\gamma(\tilde{t}) + \tilde{E}_\eta(\tilde{t}),
+\end{align}
+
+\noindent where the initial energy also includes gravity, $\tilde{E}_0 = (4\pi/3)\left(\Wen/2 + \Bon(1-\mathcal{H})\right)$, where $\mathcal{H}$ is the center of mass height of the drop at maximum compression. 
+
+Figure~\ref{fig:BolimDescription}(a) illustrates the energy budget for $(\Wen, \Ohn, \Bon) = (1, 0.01, 0)$. Comparing it with the case shown in figure~\ref{fig:OhlimDescription}(a) (where $\Ohn = 0.001$), surprisingly, we encounter many similarities. They follow similar temporal dynamics, and the fraction of kinetic energy recovered at take-off and the viscous dissipation until this instant are the same, even though $\Ohn$ differs by an order of magnitude. Although a higher $\Ohd$ increases the viscous boundary layer and the dissipation is spread throughout the drop, it attenuates most of the high-frequency capillary waves, decreasing the local viscous dissipation function (\emph{c.f.}, insets of figures~\ref{fig:OhlimDescription}a and~\ref{fig:BolimDescription}a). Consequently, the total dissipation is the same and explains the constancy of $\varepsilon$. 
+
+We now look at a case where $\Bon > \Boc$, see figure~\ref{fig:BolimDescription}(b). Just before impact, the drop has a higher initial energy owing to the contribution from gravitational potential. As a result, upon impact with the substrate, the drop accelerates until the inertial shock propagates throughout the drop \citep[see figure~\ref{fig:BolimDescription}b-i and][]{Gordillo2018, cheng2021drop}, after which the kinetic energy decreases as the drop then reaches maximum compression (figure~\ref{fig:BolimDescription}b-ii). The maximum spreading time ($t_m \approx \tau_{\rho\gamma}$) is same for both cases even though the drop undergoes more deformation at a higher $\Bon$. This higher deformation coupled with an accelerated flow owing to gravity, enhances the absolute viscous dissipation but, coincidentally, the ratio of this dissipation to the initial energy is still similar to the case of $\Bon = 0$. During the retraction stage, the kinetic energy of the drop increases (figure~\ref{fig:BolimDescription}b-ii to~\ref{fig:BolimDescription}b-iii) until the motion goes from being dominantly in the radial direction to being dominantly in the axial direction \citep[figure~\ref{fig:BolimDescription}b-iii, $t \approx 1.5\tau_{\rho\gamma}$, see][]{chantelot2018rebonds, zhang2022impact}. Beyond this instant, gravity opposes the upward motion of the drop as its kinetic energy decreases and eventually at $t \approx 2.5\tau_{\rho\gamma}$ (figure~\ref{fig:BolimDescription}b-iv) the center of mass of the drop starts moving in the downward direction. By this time, only $\approx 20\%$ of drop's initial energy goes to viscous dissipation, identical to the case of $\Bon = 0$. Interestingly, the drop can still detach from the substrate owing to capillary oscillations (see the gray shaded region in figure~\ref{fig:BolimDescription}b and the corresponding inset), but the center of mass velocity is always in the downward direction and we categorize this case as non-bouncing. Subsequently, the drop undergoes several capillary oscillations at the substrate with a time period of $\approx 2.5\tau_{\rho\gamma}$ (figure~\ref{fig:BolimDescription}b-v to~\ref{fig:BolimDescription}b-ix) until all its energy is lost to viscous dissipation \citep{biance2006}. 
+
+In summary, as $\Bon$ increases, the fraction of initial energy that goes into viscous dissipation is constant. However, the gravitational potential energy increases, leading to a decrease in both the surface and kinetic energy of the drop at take-off, which eventually stops bouncing at $\Boc$ (figure~\ref{fig:BolimDescription2}a,b). To further rationalize these observations and predict the dependence of $\varepsilon$ on $\Bon$, guided by our simulation results, we used the simplest non-dissipative spring-mass model that incorporates gravity, developed by \citet{biance2006}, written in our notation as
+
+\begin{align}
+	\label{eqn:BianceEtAl_epsilon}
+	\varepsilon = \varepsilon_0\sqrt{\left(1-\frac{\Bon}{\Boc}\right)\left(1 + \frac{1}{3}\frac{\Bon}{\Boc}\right)}.
+\end{align}
+
+\noindent This expression perfectly reproduces the variation of $\varepsilon$ across the entire range of $\Bon$ (figure~\ref{fig:Bolim}b). Here, we extract $\Boc$ from our simulation data. 
+
+\section{Conclusions and outlook}\label{sec:Conclusion}
+
+Drops smaller than their visco-capillary length, i.e., $\Ohd > 1$ stop bouncing due to viscous dissipation, while those larger than their gravito-capillary length, i.e., $\Bon > 1$ cannot bounce due to their weight. In this contribution, we have addressed the bouncing inhibition for drops of intermediate sizes $\left(\text{i.e.,}\,\eta_d^2/\rho_d\gamma < R < \sqrt{\gamma/\rho_d g}\right)$. Particularly, we investigated how viscous stresses and gravity conspire against capillarity to inhibit drop bouncing off non-wetting substrates. Drawing an analogy with the case of coalescence-induced jumping of two identical drops \citep{boreyko2009, mouterde2017merging, lecointre2019ballistics}, we proposed the criterion, $\Ohc + \Bon = 1$, for this bouncing to non-bouncing transition. Through a series of direct numerical simulations, we showed the validity of this criterion over a wide range of $\Wen$ in the $\Bon$--$\Ohd$ phase space. We also studied the two limiting cases and elucidated how the drops stop bouncing by exploring the drop morphology and flow anatomy. These two asymptotes show several distinguishing features. 
+
+For drops much smaller than their gravito-capillary lengths ($\Bon \ll 1$), as the $\Ohd$ increases, the drop impact and bouncing behavior are still analogous to one complete drop oscillation cycle. The time of contact hardly changes from its inviscid limit even when $\Ohd$ is increased over two orders of magnitude until a critical Ohnesorge number $\Ohc \sim \mathcal{O}\left(1\right)$ is reached at which the contact time diverges. On the other hand, the restitution coefficient decays exponentially with increasing $\Ohd$, owing to increased viscous dissipation. These observations are consistent with previous studies and the spring-mass-damper theoretical model developed by \citet{jha2020viscous}. Beyond the critical Ohnesorge number, the process becomes over-damped as the drop loses all its energy by the time it reaches maximum compression, after which it slowly relaxes back to a spherical shape and stays on the substrate. 
+
+For drops much larger than their visco-capillary lengths ($\Ohd \ll 1$), similar to the above asymptote, an increase in $\Bon$ hardly influences the drop contact time. Even as we approach the critical Bond number $\Boc \sim \mathcal{O}\left(1\right)$, beyond which the drop cannot leave the substrate, the contact time is only marginally higher than its value at $\Bon \to 0$. Moreover, the restitution coefficient deviates slowly from $\varepsilon_0$, its $\Wen$-dependent value at zero Bond number, until $\Boc$ is reached, decreasing sharply to zero. We used the simplest non-dissipative spring-mass model that incorporates gravity, developed by \citet{biance2006}, to study this behavior which matches perfectly with our simulation results in the inviscid drop limit. Indeed, an increase in $\Bon$ does not change the fraction of the initial energy of the drop that goes into viscous dissipation during the drop impact and retraction process. Beyond $\Boc$, the drop stops bouncing because the flow generated during the retraction phase is insufficient to lift the drop owing to its weight. Lastly, contrary to the viscous limit, even when the drop cannot leave the substrate, it has sufficient surface and kinetic energies to undergo several oscillation cycles at the substrate. 
+
+We further emphasize that both the bouncing inhibition and drop contact time are reasonably insensitive to an increase in impact Weber number ($\Wen$), which only manifests as a decrease in the restitution coefficient owing to higher viscous dissipation provided, of course, that $\Wen$ is not too small ($\Wen \ll 1$) or not too large ($\Wen \gtrsim 100$), so that axial symmetry would be broken. 
+
+We emphasize here that this work deciphers the theoretical upper bound of the bouncing to non-bouncing transition on an ideal non-wetting substrate. Indeed, the water drops can cease bouncing due to substrate pinning on non-ideal superhydrophobic substrates \citep{sarma2022interfacial}. We further make idealization regarding the surrounding medium by keeping its Ohnesorge number small ($\Oha = 10^{-5}$) so that it does not influence the impact process, and the dissipation is primarily inside the drop. The surrounding medium might play a role in the impact of microdroplets if $\Oha$ is comparable to $\Ohd$ \citep{kolinski2014drops, tai2021research}. Lastly, we solely focus on drops impacting with velocities exceeding or equal to their inertio-capillary velocity ($\Wen \ge 1$). It will be interesting to extend this work for $\Wen \ll 1$ where the drops only deform weakly, and the velocity field inside them is still significant at the instant of maximum spreading. One can either use a quasi-static model of bouncing drops \citep{molavcek2012quasi} or an analogy with non-linear springs \citep{chevy2012liquid} to probe that regime. Another extension would be to the case of very large $\Wen$ so that the axial symmetry is lost and full three-dimensional simulations must be calculated, but this regime is beyond the scope of the present work.
+
+\section*{Acknowledgments}
+We thank Aditya Jha for sharing data. We also thank Uddalok Sen, Maziyar Jalaal, Andrea Prosperetti, David Qu{\'e}r{\'e}, and Jacco Snoeijer for stimulating discussions. We acknowledge Srinath Lakshman for preliminary experiments that made us numerically and theoretically explore the effect of gravity in viscous drop bouncing. 
+
+\begin{subappendices}
+	\section{Measuring the restitution coefficient}\label{app:restitution in simulations}
+	
+	\begin{sidewaysfigure}
+		\centering
+		\includegraphics[width=180mm]{3_ChDropViscousBouncing/fig/FigureAppendixRestitution_Thesis.eps}
+		\caption{A representative temporal variation of (a) the normal reaction force $F$ on the drop and (b) its center of mass velocity $v_{\text{cm}}$. Time is normalized using the inertio-capillary timescale $\tau_{\rho\gamma}$. Insets illustrate the different stages of drop impact process. The background shows the magnitude of the rate of viscous dissipation per unit volume ($\tilde{\xi}_\eta = 2Oh\left(\boldsymbol{\tilde{\mathcal{D}}:\tilde{\mathcal{D}}}\right)$) on the left and the magnitude of velocity field normalized by the impact velocity on the right. The vertical dashed black line represents the contact time calculated using the criterion, $F = 0$ marking the end of contact between the drop and the substrate. Here, $\left(\Wen, \Ohd, \Bon\right) = \left(4, 0.034, 0.5\right)$, the contact time $t_c = 2.25\tau_{\rho\gamma}$, and the coefficient of restitution $\varepsilon = 0.47$.}
+		\label{fig:AppendixRestitution}
+	\end{sidewaysfigure}
+	
+	Throughout this chapter, we have used the time of contact and restitution coefficient to study the drop impact dynamics. In this appendix, we describe how to consistently measure this restitution coefficient which is the ratio of take-off velocity $v_{\text{cm}}(t_c)$ to the impact velocity $V$,
+	
+	\begin{align}
+		\varepsilon = \frac{v_{\text{cm}}(t_c)}{V},
+	\end{align}
+	
+	\noindent where $t_c$ denotes the contact time when the drop leaves the substrate. Note that for our simulations, we assume an ideal non-wetting substrate by ensuring that a thin air layer (with a minimum thickness of $\Delta = R/1024$, where $\Delta$ is the minimum grid size employed in the simulations), is always present between the drop and the substrate \citep[also see][]{ramirez2020lifting}. Inspired by chapter~\ref{chap:DropForces}, we define the end of contact as the instant when the normal reaction force $F(t)$ between the substrate and the drop is zero \citep[for calculation details, see equation~\eqref{Ch2:Eqn::force2} and][]{zhang2022impact}, as shown in figure~\ref{fig:AppendixRestitution}(a). Subsequently, we read out the center of mass velocity (figure~\ref{fig:AppendixRestitution}b) at this instant. If this center of mass velocity is not in the upward direction (i.e., it is zero or negative), we categorize the case as non-bouncing. For the representative case in figure~\ref{fig:AppendixRestitution}, $\varepsilon = 0.47$. 
+	
+	\section{Influence of Weber number}\label{app:Weber}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/FigureAppendix_Weber_v2_Thesis.eps}
+		\caption{Variation of restitution coefficient with the impact Weber number ($\Wen$) at different drop Ohnesorge number ($\Ohd$). The simulations (circle data points) match perfectly with the experimental results (diamond data points) of \citet{jha2020viscous} without any fitting parameters. $\varepsilon_0$ is the restitution coefficient in the inviscid drop limit. The black dotted line represents $1/\sqrt{\Wen}$. Here, the Bond number $\Bon =0.167$.}
+		\label{fig:AppendixWeber}
+	\end{figure}
+	
+	This work shows that the bouncing inhibition and drop contact time are fairly insensitive to an increase in the impact Weber number (in the range $1 \le \Wen \le 50$) while the restitution coefficient decreases monotonically due to higher viscous dissipation. To further investigate this dependence, figure~\ref{fig:AppendixWeber} illustrates this variation of restitution coefficient with $\Wen$. In the inviscid drop limit ($\Ohd \lesssim 0.1$), $\varepsilon_0$ marks the restitution coefficient which we use to scale the theoretical models used in \S~\ref{sec:LimitingCases} \citep[also see][]{biance2006, jha2020viscous}. For this range of impact Weber number $1 \le \Wen \le 50$, $\varepsilon_0$ does not follow the $1/\sqrt{\Wen}$ scaling relation developed by \citet{biance2006}. Interestingly, the restitution coefficient for viscous drop impacts ($\Ohd \gtrsim 0.1$) seems to follow this scaling relation, implying that the take-off velocity scales with the Taylor-Culick velocity ($v_{\text{cm}}(t_c) \sim \sqrt{\gamma/\rho_dR}$), and is independent of the impact velocity $V$, consistent with our assumption that the retraction and take-off stages are independent of the Weber number and disentangled from the initial impact dynamics. We caution here that the range of $\Wen$ is too small to claim these scaling relations convincingly. Lastly, notice the remarkable agreement between our simulations and the experimental data points from \citet{jha2020viscous} for two different drop Ohnesorge numbers, which differ by over two orders of magnitude.
+	
+	\section{Code availability}
+	The codes used in the present article are permanently available at \citet{basiliskVatsalViscousBouncing}.
+	
+	\section{Supplemental movies}
+	These supplemental movies are available at \citet[\href{https://youtube.com/playlist?list=PLf5C5HCrvhLHG5t3iPscUuEp_gbD4XHyU}{external YouTube link,}][]{vatsalViscDropsuppl}. 
+	
+	In all these videos, the left hand side of each snapshot shows the dimensionless viscous dissipation function $\tilde{\xi}_\eta = 2\Ohn\left(\boldsymbol{\tilde{\mathcal{D}}:\tilde{\mathcal{D}}}\right)$ on a $\log_{10}$ scale to identify regions of maximum dissipation (black). The right hand side shows the magnitude of the velocity field normalized by the initial impact velocity, $V$. 
+	
+	\begin{enumerate}
+		\item[SM1:] Typical bouncing (left) and non-bouncing drop cases that we study in this work. Also see figure~\ref{fig:RegimeMap}.
+		\item[SM2:] Three representative cases away from the two asymptotes: direct numerical simulations snapshots illustrating the drop impact dynamics.  Also see figure~\ref{fig:Phenomenology}.
+		\item[SM3:] To study the details of the light drop asymptote, $\Bon = 0$, here we show two typical cases to show inhibition of bouncing owing to enervation of internal momentum by viscous dissipation. 
+		\item[SM4:] To study the details of the inviscid drop asymptote,$\Ohd = 0.01 \ll 1$, here we show two typical cases to show how gravity ceases the bouncing of a drop by pulling it down. Note that even though the case with $\Bon = 2$ manages to leave the substrate, its center of mass velocity vector points downwards throughout the duration when it is levitating over the substrate. 
+	\end{enumerate}
+
+	\begin{figure*}
+		\centering
+		\includegraphics[width=\textwidth]{3_ChDropViscousBouncing/fig/QRcodesChapter2.eps}
+	\end{figure*}
+	
+\end{subappendices}
